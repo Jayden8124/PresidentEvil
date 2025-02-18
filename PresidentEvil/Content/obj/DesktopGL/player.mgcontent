@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/player.png</SourceFile>
-  <SourceTime>2025-02-19T00:48:59.2083743+07:00</SourceTime>
+  <SourceTime>2025-02-19T01:34:08.0779232+07:00</SourceTime>
   <DestFile>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/bin/DesktopGL/player.xnb</DestFile>
-  <DestTime>2025-02-19T00:54:16.1671164+07:00</DestTime>
+  <DestTime>2025-02-19T01:35:58.4216284+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-17T00:05:56+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
