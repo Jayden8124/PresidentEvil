@@ -44,7 +44,7 @@ namespace PresidentEvil
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
+            
         }
 
         public virtual void Reset()

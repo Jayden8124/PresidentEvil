@@ -6,8 +6,8 @@ namespace PresidentEvil
     public class Singleton
     {
         // Size of the screen
-        public const int SCREENWIDTH = 1920;
-        public const int SCREENHEIGHT = 1080;
+        public const int SCREENWIDTH = 1280;
+        public const int SCREENHEIGHT = 720;
 
         // Utility variables
         public int Score;

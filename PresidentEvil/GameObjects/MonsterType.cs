@@ -10,7 +10,6 @@ namespace PresidentEvil
         {
 
         }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, Viewport, Color.White);

@@ -1,1 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/map.png","C:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/bin/DesktopGL/Content/map.xnb","TextureProcessor","Texture2DContent",6691,135253,0.4067684
+"C:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/player.png","C:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/bin/DesktopGL/Content/player.xnb","TextureProcessor","Texture2DContent",74185,1891489,0.1370963
