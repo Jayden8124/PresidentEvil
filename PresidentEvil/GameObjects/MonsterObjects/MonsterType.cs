@@ -6,6 +6,15 @@ namespace PresidentEvil
 {
     public class MonsterType : GameObject
     {
+        public AnimationManager AnimationManager;
+        public Dictionary<string, Animation> Animations;
+        protected bool facingLeft = true;
+        protected bool isAttacking = false;
+        protected bool isDead = false;
+        protected int HealthPoint;
+        protected int Damage;
+        protected int Speed;
+
         public MonsterType(Texture2D texture) : base(texture)
         {
 
