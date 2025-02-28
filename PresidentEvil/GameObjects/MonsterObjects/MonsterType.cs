@@ -6,22 +6,42 @@ namespace PresidentEvil
 {
     public class MonsterType : GameObject
     {
+        // Animation
         public AnimationManager AnimationManager;
         public Dictionary<string, Animation> Animations;
+
+        // Monster Status
+        protected int HealthPoint;
+        protected int Damage;
         protected bool facingLeft = true;
         protected bool isAttacking = false;
         protected bool isDead = false;
-        protected int HealthPoint;
-        protected int Damage;
-        protected int Speed;
+        public float DistanceMoved;
+
+        public MonsterType(Dictionary<string, Animation> animations)
+        {
+            Animations = animations;
+            AnimationManager = new AnimationManager(Animations["Idle"]);
+            IsActive = true;
+        }
 
         public MonsterType(Texture2D texture) : base(texture)
         {
 
         }
+
+        public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
+        {
+            AnimationManager.Update(gameTime); 
+            base.Update(gameTime, _gameObjects);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Viewport, Color.White);
+            // Draw Monster Animation
+            AnimationManager.Position = Position;
+            AnimationManager.Draw(spriteBatch);
+
             base.Draw(spriteBatch);
         }
 
@@ -29,10 +49,6 @@ namespace PresidentEvil
         {
             base.Reset();
         }
-
-        public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
-        {
-            base.Update(gameTime, _gameObjects);
-        }
     }
 }
+

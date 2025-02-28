@@ -61,7 +61,7 @@ namespace PresidentEvil
                         new Rectangle(70,  320, 59, 64),
                         new Rectangle(152, 320, 64, 64),
                         new Rectangle(251, 320, 33, 64),
-                        new Rectangle(319, 310, 85, 74)
+                        new Rectangle(319, 310, 85, 64)
                     }, 0.10f, false)
                 },
 

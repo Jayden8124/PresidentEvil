@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -106,14 +106,27 @@ public class MainScene : Game
         Singleton.Instance.Score = 0;
         Singleton.Instance.Timer = 0;
         Singleton.Instance.CurrentGameState = Singleton.GameState.Start;
-        
-        // Texture Loaded
-        Texture2D knightSheet = Content.Load<Texture2D>("player");
-        Texture2D monsterSheet = Content.Load<Texture2D>("blue_slime");
-        
+
         _gameObjects.Clear();
 
+        // Load Texture Player
+        Texture2D knightSheet = Content.Load<Texture2D>("player");
+
+        // Load Texture Monster
+        var monsterTextures = new Dictionary<AnimationMonster.AnimationMonsterType, Texture2D>
+        {
+            { AnimationMonster.AnimationMonsterType.SKLT_WR, Content.Load<Texture2D>("skeleton_warrior") },
+            { AnimationMonster.AnimationMonsterType.SKLT_SM, Content.Load<Texture2D>("skeleton_spearman") },
+            { AnimationMonster.AnimationMonsterType.SKLT_AC, Content.Load<Texture2D>("skeleton_archer") },
+            { AnimationMonster.AnimationMonsterType.SL, Content.Load<Texture2D>("blue_slime") }
+        };
+
+        // Player Instance
         var _animationsPlayer = AnimationPlayer.LoadAnimations(knightSheet);
+
+        // Monster Instance
+        var _animationMonster = new AnimationMonster();
+        _animationMonster.LoadAllAnimations(monsterTextures);
 
         player = new Player(_animationsPlayer)
         {
@@ -132,7 +145,26 @@ public class MainScene : Game
                 Velocity = new Vector2(-500f, 0)
             }
         };
+
+         // สร้าง monster โดยเรียกใช้ animation ที่ต้องการ (เช่น SKLT_WR)
+        MonsterType monster = new SKLT_WR(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_WR))
+        {
+            Name = "SKLT1",
+            Viewport = new Rectangle(0, 0, 36, 65),
+            Position = new Vector2(500, Singleton.SCREENHEIGHT - _background.Height - 70)
+        };
+
+        MonsterType monster1 = new SL(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SL))
+        {
+            Name = "SL1",
+            Viewport = new Rectangle(0, 0, 36, 65),
+            Position = new Vector2(700, Singleton.SCREENHEIGHT - _background.Height - 70)
+        };
+
+        // Add GameObjects
         _gameObjects.Add(player);
+        _gameObjects.Add(monster);
+        _gameObjects.Add(monster1);
 
         foreach (GameObject s in _gameObjects)
         {
