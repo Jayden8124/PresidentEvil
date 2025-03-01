@@ -12,11 +12,12 @@ public class MainScene : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    // SpriteFont _font;
+    SpriteFont _font;
     List<GameObject> _gameObjects;
-    Texture2D _background;
     public int _numOjects;
     private Camera _camera;
+    private Map _map;
+
     Player player;
 
     public MainScene()
@@ -35,6 +36,7 @@ public class MainScene : Game
         _gameObjects = new List<GameObject>();
 
         _camera = new Camera(GraphicsDevice.Viewport); // Initialize camera
+        _map = new Map(GraphicsDevice); // Initialize map
 
         base.Initialize();
     }
@@ -43,8 +45,8 @@ public class MainScene : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // _font = Content.Load<SpriteFont>("Name");
-        _background = Content.Load<Texture2D>("map");
+        _font = Content.Load<SpriteFont>("game_font");
+        _map.LoadContent(Content);
 
         Reset();
     }
@@ -88,7 +90,7 @@ public class MainScene : Game
 
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
-        _spriteBatch.Draw(_background, new Rectangle(0, Singleton.SCREENHEIGHT - _background.Height, _background.Width * 3, _background.Height), Color.White);
+        _map.Draw(_spriteBatch);
 
         for (int i = 0; i < _numOjects; i++)
         {
@@ -132,7 +134,7 @@ public class MainScene : Game
         {
             Name = "Player",
             Viewport = new Rectangle(5, 0, 43, 64),
-            Position = new Vector2(100, Singleton.SCREENHEIGHT - _background.Height - 64),
+            Position = new Vector2(100, Singleton.SCREENHEIGHT - 300),
             Left = Keys.Left,
             Right = Keys.Right,
             Up = Keys.Up,
@@ -146,19 +148,19 @@ public class MainScene : Game
             }
         };
 
-         // สร้าง monster โดยเรียกใช้ animation ที่ต้องการ (เช่น SKLT_WR)
+        // สร้าง monster โดยเรียกใช้ animation ที่ต้องการ (เช่น SKLT_WR)
         MonsterType monster = new SKLT_WR(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_WR))
         {
             Name = "SKLT1",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(500, Singleton.SCREENHEIGHT - _background.Height - 70)
+            Position = new Vector2(500, Singleton.SCREENHEIGHT - 70)
         };
 
         MonsterType monster1 = new SL(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SL))
         {
             Name = "SL1",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(700, Singleton.SCREENHEIGHT - _background.Height - 70)
+            Position = new Vector2(700, Singleton.SCREENHEIGHT - 70)
         };
 
         // Add GameObjects

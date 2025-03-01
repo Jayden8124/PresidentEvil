@@ -4,15 +4,37 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/blue_slime.png</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/chest.png</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/map.png</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/player.png</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/skeleton_archer.png</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/skeleton_spearman.png</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/skeleton_warrior.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/bg.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/blue_slime.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/chest.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/game_font.spritefont</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/gold_coin.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/health_bar_blue.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/health_bar_red.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/health_potion.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/hitbox.PNG</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/icon.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/map.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/medusa.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/player.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/skeleton_archer.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/skeleton_spearman.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/skeleton_warrior.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/TilesetGround.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/ult_charge.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

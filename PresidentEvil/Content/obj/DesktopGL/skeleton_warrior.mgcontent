@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/skeleton_warrior.png</SourceFile>
-  <SourceTime>2025-02-23T02:33:57.3359004+07:00</SourceTime>
-  <DestFile>c:/Study-Comsci/Y3T2/COMGAME/Final/PresidentEvil/PresidentEvil/Content/bin/DesktopGL/skeleton_warrior.xnb</DestFile>
-  <DestTime>2025-02-23T02:38:17.8166727+07:00</DestTime>
+  <SourceFile>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/skeleton_warrior.png</SourceFile>
+  <SourceTime>2025-03-01T14:55:16.4962202+07:00</SourceTime>
+  <DestFile>c:/Study-Comsci/Y3T2/COMGAME/Final/B/PresidentEvil/PresidentEvil/Content/bin/DesktopGL/skeleton_warrior.xnb</DestFile>
+  <DestTime>2025-03-01T14:59:52.669176+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-17T00:05:56+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
