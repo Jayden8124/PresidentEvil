@@ -37,14 +37,14 @@ namespace PresidentEvil
             Rotation = 0f;
             IsActive = true;
         }
-       public virtual void Update(GameTime gameTime, List<GameObject> gameObjects)
+        public virtual void Update(GameTime gameTime, List<GameObject> gameObjects)
         {
 
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            
+
         }
 
         public virtual void Reset()
@@ -55,6 +55,17 @@ namespace PresidentEvil
         public object Clone()
         {
             return this.MemberwiseClone();
+        }
+        public static bool CheckAABBCollision(Rectangle A, Rectangle B)
+        {
+            float d1x = B.Left- A.Right;
+            float d1y = B.Top -A.Bottom;
+            float d2x = A.Left- B.Right;
+            float d2y = A.Top -B.Bottom;
+
+            if(d1x > 0 || d1y > 0) return false;
+            if(d2x > 0 || d2y > 0) return false;
+            return true;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace PresidentEvil
         public int Score;
         public long Timer;
         public Random Random;
+        public Player player;
 
         // Game state
         public enum GameState

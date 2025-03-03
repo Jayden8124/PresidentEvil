@@ -12,13 +12,12 @@ public class MainScene : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private Texture2D _background;
     SpriteFont _font;
     List<GameObject> _gameObjects;
     public int _numOjects;
     private Camera _camera;
     private Map _map;
-
-    Player player;
 
     public MainScene()
     {
@@ -47,6 +46,7 @@ public class MainScene : Game
 
         _font = Content.Load<SpriteFont>("game_font");
         _map.LoadContent(Content);
+        _background = Content.Load<Texture2D>("bg");
 
         Reset();
     }
@@ -74,9 +74,9 @@ public class MainScene : Game
         }
 
         // Make camera follow the player
-        if (player != null)
+        if (Singleton.Instance.player != null)
         {
-            _camera.Follow(player);
+            _camera.Follow(Singleton.Instance.player);
         }
 
         Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;
@@ -87,7 +87,11 @@ public class MainScene : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.White);
+        _spriteBatch.Begin();
+        // _spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
 
+        _spriteBatch.End();
+        
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
         _map.Draw(_spriteBatch);
@@ -98,6 +102,12 @@ public class MainScene : Game
         }
 
         _spriteBatch.End();
+
+        _spriteBatch.Begin();
+        _spriteBatch.DrawString(_font, "Score: " + Singleton.Instance.Score, new Vector2(10, 10), Color.Black);
+        _spriteBatch.DrawString(_font, "Time: " + Singleton.Instance.Timer, new Vector2(10, 30), Color.Black);
+        _spriteBatch.End();
+        
         _graphics.BeginDraw();
 
         base.Draw(gameTime);
@@ -111,7 +121,7 @@ public class MainScene : Game
 
         _gameObjects.Clear();
 
-        // Load Texture Player
+        // Load Texture Singleton.Instance.player
         Texture2D knightSheet = Content.Load<Texture2D>("player");
 
         // Load Texture Monster
@@ -130,7 +140,7 @@ public class MainScene : Game
         var _animationMonster = new AnimationMonster();
         _animationMonster.LoadAllAnimations(monsterTextures);
 
-        player = new Player(_animationsPlayer)
+        Singleton.Instance.player = new Player(_animationsPlayer)
         {
             Name = "Player",
             Viewport = new Rectangle(5, 0, 43, 64),
@@ -163,8 +173,24 @@ public class MainScene : Game
             Position = new Vector2(700, Singleton.SCREENHEIGHT - 70)
         };
 
+        // Load Texture Chest
+        Texture2D chestSheet = Content.Load<Texture2D>("chest");
+
+        // Chest Instance
+        var _animationsChest = AnimationChest.LoadChestsAnimations(chestSheet);
+        var goldChestAnimations = _animationsChest[ChestType.GoldChest];
+
+
+        Chest chest = new Chest(goldChestAnimations)
+        {
+            Name = "Chest",
+            openKey = Keys.E,
+            Position = new Vector2(300, Singleton.SCREENHEIGHT - 300)
+        };
+
         // Add GameObjects
-        _gameObjects.Add(player);
+        _gameObjects.Add(chest);
+        _gameObjects.Add(Singleton.Instance.player);
         _gameObjects.Add(monster);
         _gameObjects.Add(monster1);
 

@@ -15,7 +15,7 @@ namespace PresidentEvil
         public Rectangle hitbox;
         private GraphicsDevice _graphicsDevice;
 
-        private int TILESIZE = 32; // size of the tile in the game
+        private int TILESIZE = 24; // size of the tile in the game
         private int num_tile_per_row = 32; // number of tiles per row in the tileset
         private int pixel_tilesize = 16;  // size of the tile in the tileset
 
@@ -80,7 +80,7 @@ namespace PresidentEvil
                     pixel_tilesize
                 );
                 this.hitbox = hitbox;
-                spriteBatch.Draw(hitboxTexture, drest, src, Color.White);
+                // spriteBatch.Draw(hitboxTexture, drest, src, Color.White);
             }
         }
 

@@ -101,3 +101,5 @@ C:\Study-Comsci\Y3T2\COMGAME\Final\B\PresidentEvil\PresidentEvil\obj\Debug\net8.
 C:\Study-Comsci\Y3T2\COMGAME\Final\B\PresidentEvil\PresidentEvil\obj\Debug\net8.0\PresidentEvil.pdb
 C:\Study-Comsci\Y3T2\COMGAME\Final\B\PresidentEvil\PresidentEvil\obj\Debug\net8.0\PresidentEvil.genruntimeconfig.cache
 C:\Study-Comsci\Y3T2\COMGAME\Final\B\PresidentEvil\PresidentEvil\obj\Debug\net8.0\ref\PresidentEvil.dll
+C:\Study-Comsci\Y3T2\COMGAME\Final\B\PresidentEvil\PresidentEvil\bin\Debug\net8.0\Content\bg.xnb
+C:\Study-Comsci\Y3T2\COMGAME\Final\B\PresidentEvil\PresidentEvil\bin\Debug\net8.0\Content\medusa.xnb

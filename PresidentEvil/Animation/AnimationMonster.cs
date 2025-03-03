@@ -49,11 +49,11 @@ namespace PresidentEvil
         {
             return new Dictionary<string, Animation>
             {
-                { "Idle", new Animation(texture, new List<Rectangle>
+                { "Idle", new Animation(texture, new List<Rectangle>//wtf
                     {
                         new Rectangle(16, 22, 53, 58),
                         new Rectangle(112, 22, 53, 58)
-                    }, 0.15f, true)
+                    }, 0.3f, true)
                 },
                 { "Projectile", new Animation(texture, new List<Rectangle>
                     {
@@ -62,14 +62,14 @@ namespace PresidentEvil
                 },
                 { "Walk", new Animation(texture, new List<Rectangle>
                     {
-                        new Rectangle(16, 11, 36, 65),
+                        new Rectangle(16, 111, 36, 65),
                         new Rectangle(96, 111, 36, 65),
                         new Rectangle(160, 111, 52, 65),
                         new Rectangle(256, 111, 59, 65),
                         new Rectangle(352, 111, 52, 65),
                         new Rectangle(443, 111, 36, 65),
                         new Rectangle(512, 111, 36, 65)
-                    }, 0.7f, true)
+                    }, 0.25f, true)
                 },
                 { "Run", new Animation(texture, new List<Rectangle>
                     {
@@ -80,20 +80,28 @@ namespace PresidentEvil
                         new Rectangle(400, 359, 61, 57)
                     }, 0.10f, true)
                 },
-                { "Attack", new Animation(texture, new List<Rectangle>
+                { "Attack", new Animation(texture, new List<Rectangle> //wtf
                     {
                         new Rectangle(13, 194, 47, 62),
                         new Rectangle(94, 194, 53, 62),
                         new Rectangle(189, 197, 42, 59),
                         new Rectangle(269, 179, 86, 77),
                         new Rectangle(397, 202, 48, 54)
-                    }, 0.10f, false)
+                    }, 0.25f, false)
                 },
                 { "Hurt", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(16, 274, 47, 62),
                         new Rectangle(96, 275, 47, 61)
-                    }, 0.10f, false)
+                    }, 0.30f, false)
+                },
+                { "Dead", new Animation(texture, new List<Rectangle>
+                    {
+                        new Rectangle(20, 534, 39, 58),
+                        new Rectangle(115, 537, 39, 55),
+                        new Rectangle(224, 555, 51, 37),
+                        new Rectangle(321, 575, 64, 17)
+                    }, 0.25f, false)
                 }
             };
         }
@@ -105,11 +113,11 @@ namespace PresidentEvil
         {
             return new Dictionary<string, Animation>
             {
-                { "Idle", new Animation(texture, new List<Rectangle>
+                { "Idle", new Animation(texture, new List<Rectangle>//wtf
                     {
                         new Rectangle(17, 32, 37, 64),
                         new Rectangle(145, 32, 37, 64)
-                    }, 0.15f, true)
+                    }, 0.3f, true)
                 },
                 { "Projectile", new Animation(texture, new List<Rectangle>
                     {
@@ -125,7 +133,7 @@ namespace PresidentEvil
                         new Rectangle(527, 128, 35, 64),
                         new Rectangle(654, 128, 35, 64),
                         new Rectangle(789, 128, 35, 64)
-                    }, 0.10f, true)
+                    }, 0.30f, true)
                 },
                 { "Attack", new Animation(texture, new List<Rectangle>
                     {
@@ -144,27 +152,27 @@ namespace PresidentEvil
                         new Rectangle(917, 326, 48, 74),
                         new Rectangle(1046, 326, 58, 74),
                         new Rectangle(1173, 326, 58, 74)
-                    }, 0.10f, true)
+                    }, 0.20f, true)
                 },
                 { "Shot", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(16, 439, 51, 74),
                         new Rectangle(143, 439, 51, 74),
                         new Rectangle(271, 439, 51, 74)
-                    }, 0.12f, false)
+                    }, 0.3f, false)
                 },
                 { "Hurt", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(17, 549, 40, 59),
                         new Rectangle(145, 549, 39, 59)
-                    }, 0.10f, false)
+                    }, 0.30f, false)
                 },
                 { "Dead", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(16, 654, 46, 49),
                         new Rectangle(144, 662, 50, 41),
                         new Rectangle(272, 693, 68, 10)
-                    }, 0.10f, false)
+                    }, 0.25f, false)
                 }
             };
         }
@@ -182,7 +190,7 @@ namespace PresidentEvil
                         new Rectangle(80, 16, 47, 32),
                         new Rectangle(144, 16, 47, 32),
                         new Rectangle(208, 16, 47, 32)
-                    }, 0.15f, true)
+                    }, 0.2f, true)
                 },
                 { "Walk", new Animation(texture, new List<Rectangle>
                     {
@@ -190,7 +198,7 @@ namespace PresidentEvil
                         new Rectangle(80, 70, 53, 26),
                         new Rectangle(144, 66, 52, 30),
                         new Rectangle(208, 63, 50, 33)
-                    }, 0.10f, true)
+                    }, 0.20f, true)
                 },
                 { "Jump", new Animation(texture, new List<Rectangle>
                     {
@@ -208,7 +216,7 @@ namespace PresidentEvil
                         new Rectangle(80, 177, 50, 31),
                         new Rectangle(144, 174, 49, 34),
                         new Rectangle(208, 175, 61, 33)
-                    }, 0.10f, true)
+                    }, 0.3f, true)
                 },
                 { "Run", new Animation(texture, new List<Rectangle>
                     {
@@ -229,14 +237,14 @@ namespace PresidentEvil
                         new Rectangle(224, 270, 77, 34),
                         new Rectangle(320, 273, 121, 31),
                         new Rectangle(458, 274, 50, 30)
-                    }, 0.10f, false)
+                    }, 0.2f, false)
                 },
                 { "Dead", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(16, 325, 46, 27),
                         new Rectangle(80, 333, 47, 19),
                         new Rectangle(144, 337, 52, 15)
-                    }, 0.10f, false)
+                    }, 0.25f, false)
                 }
             };
         }
@@ -252,13 +260,13 @@ namespace PresidentEvil
                     {
                         new Rectangle(16, 16, 30, 80),
                         new Rectangle(144, 16, 30, 80)
-                    }, 0.15f, true)
+                    }, 0.3f, true)
                 },
                 { "Projectile", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(544, 27, 33, 69),
                         new Rectangle(672, 28, 29, 68)
-                    }, 0.10f, true)
+                    }, 0.25f, true)
                 },
                 { "Walk", new Animation(texture, new List<Rectangle>
                     {
@@ -269,7 +277,7 @@ namespace PresidentEvil
                         new Rectangle(533, 118, 48, 90),
                         new Rectangle(664, 120, 42, 88),
                         new Rectangle(785, 122, 42, 86)
-                    }, 0.10f, true)
+                    }, 0.25f, true)
                 },
                 { "Run", new Animation(texture, new List<Rectangle>
                     {
@@ -287,14 +295,14 @@ namespace PresidentEvil
                         new Rectangle(143, 347, 83, 53),
                         new Rectangle(284, 348, 95, 52),
                         new Rectangle(412, 348, 96, 52)
-                    }, 0.10f, true)
+                    }, 0.2f, true)
                 },
                 { "Hurt", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(16, 446, 42, 82),
                         new Rectangle(151, 446, 35, 82),
                         new Rectangle(289, 446, 30, 82)
-                    }, 0.10f, false)
+                    }, 0.25f, false)
                 },
                 { "Dead", new Animation(texture, new List<Rectangle>
                     {
@@ -303,7 +311,7 @@ namespace PresidentEvil
                         new Rectangle(282, 583, 49, 73),
                         new Rectangle(410, 619, 62, 37),
                         new Rectangle(538, 642, 64, 14)
-                    }, 0.10f, false)
+                    }, 0.20f, false)
                 }
             };
         }
