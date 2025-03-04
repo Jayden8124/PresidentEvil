@@ -1,5 +1,7 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace PresidentEvil
 {
@@ -14,6 +16,10 @@ namespace PresidentEvil
         public long Timer;
         public Random Random;
         public Player player;
+
+        // Map Hit Block
+        public List<Rectangle> HitblockTiles;
+
 
         // Game state
         public enum GameState

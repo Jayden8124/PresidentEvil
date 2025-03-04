@@ -84,7 +84,7 @@ namespace PresidentEvil
         }
 
         // เมธอดสำหรับอัปเดทสถานะ OnGround
-        public static void UpdateOnGround(GameObject obj, List<Rectangle> collisionTiles)
+       public static void UpdateOnGround(GameObject obj, List<Rectangle> collisionTiles)
         {
             Rectangle objRect = obj.Rectangle;
             // สร้าง rectangle เล็ก ๆ ที่ด้านล่างของวัตถุ (ความสูง 5 พิกเซล)
@@ -99,18 +99,8 @@ namespace PresidentEvil
                 }
             }
 
-            // สำหรับ Player ให้ตรวจสอบเฉพาะเมื่อกำลังตกลงมา (VerticalVelocity ≥ 0)
-            if (obj is Player player)
-            {
-                if (player.VerticalVelocity >= 0)
-                    player.OnGround = onGround;
-            }
-            else if (obj is MonsterType monster)
-            {
-                // หาก Monster มีการใช้ Velocity.Y ในการเคลื่อนที่
-                if (monster.Velocity.Y >= 0)
-                    monster.OnGround = onGround;
-            }
+            if (obj.Velocity.Y >= 0)
+                obj.OnGround = onGround;
         }
     }
 }

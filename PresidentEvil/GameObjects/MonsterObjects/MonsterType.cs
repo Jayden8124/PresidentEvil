@@ -11,15 +11,10 @@ namespace PresidentEvil
         public Dictionary<string, Animation> Animations;
 
         // Monster Status
-        protected int HealthPoint;
-        protected int Damage;
         protected bool facingLeft = true;
         protected bool isAttacking = false;
         protected bool isDead = false;
         public float DistanceMoved;
-
-         // Property ใหม่ สำหรับเช็ค OnGround
-    public bool OnGround { get; set; } = false;
 
         public MonsterType(Dictionary<string, Animation> animations)
         {
@@ -36,13 +31,14 @@ namespace PresidentEvil
         public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
         {
             float gravityValue = 0.5f;  // กำหนดค่าแรงโน้มถ่วงสำหรับ Monster
-    if (!OnGround)
-    {
-        Velocity.Y += gravityValue;
-        Position.Y += Velocity.Y;
-    }
-    
-            AnimationManager.Update(gameTime); 
+
+            if (!OnGround)
+            {
+                Velocity.Y += gravityValue;
+                Position.Y += Velocity.Y;
+            }
+
+            AnimationManager.Update(gameTime);
             base.Update(gameTime, _gameObjects);
         }
 

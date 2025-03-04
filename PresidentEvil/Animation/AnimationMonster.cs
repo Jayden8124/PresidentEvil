@@ -14,7 +14,8 @@ namespace PresidentEvil
             SKLT_WR,
             SKLT_SM,
             SKLT_AC,
-            SL
+            SL,
+            MDS
         }
 
         public virtual Dictionary<string, Animation> LoadAnimations(Texture2D texture)
@@ -35,6 +36,9 @@ namespace PresidentEvil
 
             if (textures.ContainsKey(AnimationMonsterType.SL))
                 AnimationMonsterList[AnimationMonsterType.SL] = new AnimationSlime().LoadAnimations(textures[AnimationMonsterType.SL]);
+                
+            if (textures.ContainsKey(AnimationMonsterType.MDS))
+                AnimationMonsterList[AnimationMonsterType.MDS] = new AnimationMDS().LoadAnimations(textures[AnimationMonsterType.MDS]);    
         }
 
         public Dictionary<string, Animation> GetAnimations(AnimationMonsterType type)
@@ -312,6 +316,80 @@ namespace PresidentEvil
                         new Rectangle(410, 619, 62, 37),
                         new Rectangle(538, 642, 64, 14)
                     }, 0.20f, false)
+                }
+            };
+        }
+    }
+
+    public class AnimationMDS : AnimationMonster // Not Ready
+    {
+        public override Dictionary<string, Animation> LoadAnimations(Texture2D texture)
+        {
+            return new Dictionary<string, Animation>
+            {
+                { "Idle", new Animation(texture, new List<Rectangle>//wtf
+                    {
+                        new Rectangle(31, 419, 65, 77),
+                        new Rectangle(159, 418, 65, 78),
+                        new Rectangle(287, 416, 65, 80),
+                        new Rectangle(415, 415, 65, 81),
+                        new Rectangle(543, 413, 65, 83),
+                        new Rectangle(671, 411, 65, 85),
+                        new Rectangle(799, 415, 65, 81)
+                    }, 0.3f, true)
+                },
+                { "Walk", new Animation(texture, new List<Rectangle>
+                    {
+                        new Rectangle(42, 699, 53, 85),
+                        new Rectangle(169, 701, 54, 83),
+                        new Rectangle(294, 702, 57, 82),
+                        new Rectangle(419, 703, 60, 81),
+                        new Rectangle(545, 701, 62, 83),
+                        new Rectangle(667, 698, 68, 86),
+                        new Rectangle(791, 696, 73, 88),
+                        new Rectangle(935, 696, 57, 88),
+                        new Rectangle(1060, 695, 60, 89),
+                        new Rectangle(1187, 697, 60, 87),
+                        new Rectangle(1314, 699, 61, 85),
+                        new Rectangle(1445, 700, 58, 84),
+                        new Rectangle(1548, 699, 47, 85)
+                    }, 0.25f, true)
+                },
+                { "Run", new Animation(texture, new List<Rectangle>
+                    {
+                        new Rectangle(7, 553, 116, 80),
+                        new Rectangle(133, 552, 119, 81),
+                        new Rectangle(258, 551, 123, 82),
+                        new Rectangle(385, 550, 125, 83),
+                        new Rectangle(513, 551, 123, 82),
+                        new Rectangle(642, 552, 121, 81),
+                        new Rectangle(773, 552, 117, 81)
+                    }, 0.25f, true)
+                },
+                { "Attack", new Animation(texture, new List<Rectangle> //wtf
+                    {
+                        new Rectangle(39, 45, 56, 83),
+                        new Rectangle(168, 44, 56, 84),
+                        new Rectangle(301, 49, 51, 79),
+                        new Rectangle(430, 48, 65, 80),
+                        new Rectangle(556, 49, 82, 79),
+                        new Rectangle(678, 47, 79, 81),
+                        new Rectangle(803, 42, 49, 86)
+                    }, 0.25f, false)
+                },
+                { "Hurt", new Animation(texture, new List<Rectangle>
+                    {
+                        new Rectangle(40, 301, 56, 83),
+                        new Rectangle(168, 292, 56, 92),
+                        new Rectangle(293, 291, 59, 93)
+                    }, 0.30f, false)
+                },
+                { "Dead", new Animation(texture, new List<Rectangle>
+                    {
+                        new Rectangle(30, 166, 66, 90),
+                        new Rectangle(158, 166, 66, 90),
+                        new Rectangle(286, 230, 83, 26)
+                    }, 0.25f, false)
                 }
             };
         }

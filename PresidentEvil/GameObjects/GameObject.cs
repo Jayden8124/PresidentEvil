@@ -16,6 +16,10 @@ namespace PresidentEvil
         public bool IsActive; // Check is show in screen
         public Rectangle Viewport; // View of the object
 
+
+        // Properties Other
+        public bool OnGround { get; set; } = false;
+
         public Rectangle Rectangle
         {
             get { return new Rectangle((int)Position.X, (int)Position.Y, Viewport.Width, Viewport.Height); }

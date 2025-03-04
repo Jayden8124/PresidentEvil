@@ -69,6 +69,8 @@ public class MainScene : Game
         _pauseButton.SetData(new[] { Color.White });
         _pauseButtonPos = new Rectangle(1100, 20, 80, 40);
 
+        Singleton.Instance.HitblockTiles = _map.GetCollisionRectangles();
+
         Reset();
     }
 
@@ -121,21 +123,11 @@ public class MainScene : Game
                     _camera.Follow(Singleton.Instance.player);
                 }
 
-                // // ดึงรายชื่อ tile collision จาก Map
-                List<Rectangle> collisionTiles = _map.GetCollisionRectangles();
-
-                // ตรวจสอบและแก้ไข collision สำหรับ Player
-                CollisionManager.ResolveCollision(Singleton.Instance.player, collisionTiles);
-                CollisionManager.UpdateOnGround(Singleton.Instance.player, collisionTiles);
-
                 // ตรวจสอบและแก้ไข collision สำหรับ Monster แต่ละตัว for Collision   
                 foreach (var obj in _gameObjects)
                 {
-                    if (obj is MonsterType monster)
-                    {
-                        CollisionManager.ResolveCollision(monster, collisionTiles);
-                        CollisionManager.UpdateOnGround(monster, collisionTiles);
-                    }
+                    CollisionManager.ResolveCollision(obj, Singleton.Instance.HitblockTiles);
+                    CollisionManager.UpdateOnGround(obj, Singleton.Instance.HitblockTiles);   
                 }
 
                 // หลังจากที่ทำ Collision กับ tile map แล้ว
@@ -200,7 +192,6 @@ public class MainScene : Game
                 {
                     GraphicsDevice.Clear(Color.White);
 
-                    /*--------------UI---------------*/
                     _spriteBatch.Begin();
 
                     _spriteBatch.Draw(_exitButton, _exitButtonPos, Color.Gray); // Exit
@@ -210,7 +201,7 @@ public class MainScene : Game
                     _spriteBatch.DrawString(_font, "Pause", GetCenteredTextPosition("Pause", _font, _pauseButtonPos), Color.Black);
 
                     _spriteBatch.End();
-                    /*------------------------------*/
+
 
                     _spriteBatch.Begin(transformMatrix: _camera.Transform);
                     // _DrawUI();
@@ -298,7 +289,7 @@ public class MainScene : Game
         {
             Name = "Player",
             Viewport = new Rectangle(5, 0, 43, 64),
-            Position = new Vector2(100, 800),
+            Position = new Vector2(1600, 800),
             Left = Keys.Left,
             Right = Keys.Right,
             Up = Keys.Up,
@@ -323,7 +314,8 @@ public class MainScene : Game
             { AnimationMonster.AnimationMonsterType.SKLT_WR, Content.Load<Texture2D>("skeleton_warrior") },
             { AnimationMonster.AnimationMonsterType.SKLT_SM, Content.Load<Texture2D>("skeleton_spearman") },
             { AnimationMonster.AnimationMonsterType.SKLT_AC, Content.Load<Texture2D>("skeleton_archer") },
-            { AnimationMonster.AnimationMonsterType.SL, Content.Load<Texture2D>("blue_slime") }
+            { AnimationMonster.AnimationMonsterType.SL, Content.Load<Texture2D>("blue_slime") },
+            { AnimationMonster.AnimationMonsterType.MDS, Content.Load<Texture2D>("medusa") }
         };
 
         // Monster Instance
@@ -334,18 +326,42 @@ public class MainScene : Game
         {
             Name = "SKLT1",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(200, Singleton.SCREENHEIGHT - 550)
+            Position = new Vector2(1600, 800)
         };
 
         MonsterType monster1 = new SL(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SL))
         {
             Name = "SL1",
+            Viewport = new Rectangle(0, 0, 36, 35),
+            Position = new Vector2(2100, 200)
+        };
+
+        MonsterType monster2 = new SKLT_SM(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_SM))
+        {
+            Name = "SKLT2",
+            Viewport = new Rectangle(0, 0, 36, 75),
+            Position = new Vector2(2200, 800)
+        };
+
+        MonsterType monster3 = new SKLT_AC(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_AC))
+        {
+            Name = "SKLT3",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(300, Singleton.SCREENHEIGHT - 550)
+            Position = new Vector2(2300, 800)
+        };
+
+        MonsterType boss = new MDS(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.MDS))
+        {
+            Name = "MDS1",
+            Viewport = new Rectangle(0, 0, 65, 85),
+            Position = new Vector2(2300, 200)
         };
 
         _gameObjects.Add(monster);
-        _gameObjects.Add(monster1);
+        // _gameObjects.Add(monster1);
+        // _gameObjects.Add(monster2);
+        // _gameObjects.Add(monster3);
+        // _gameObjects.Add(boss);
     }
 
     public void ResetObject()
@@ -362,7 +378,7 @@ public class MainScene : Game
         {
             Name = "Chest",
             openKey = Keys.E,
-            Position = new Vector2(300, Singleton.SCREENHEIGHT - 300)
+            Position = new Vector2(300, 800)
         };
 
         // Add GameObjects
