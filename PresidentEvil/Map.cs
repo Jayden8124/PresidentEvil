@@ -109,5 +109,19 @@ namespace PresidentEvil
             }
             return result;
         }
+
+        public List<Rectangle> GetCollisionRectangles()
+        {
+            List<Rectangle> collisionRects = new List<Rectangle>();
+            foreach (var item in collisions)
+            {
+                Rectangle tileRect = new Rectangle((int)item.Key.X * TILESIZE,
+                                                   (int)item.Key.Y * TILESIZE,
+                                                   TILESIZE, TILESIZE);
+                collisionRects.Add(tileRect);
+            }
+            return collisionRects;
+        }
+
     }
 }

@@ -9,8 +9,10 @@ namespace PresidentEvil
     public class Chest : GameObject
     {
         public bool IsOpen;
-        private AnimationManager AnimationManager;
         public Keys openKey;
+
+        // Animation
+        private AnimationManager AnimationManager;
         private Dictionary<string, Animation> Animations;
 
         public Chest(Dictionary<string, Animation> animations)

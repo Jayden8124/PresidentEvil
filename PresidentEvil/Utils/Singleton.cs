@@ -20,7 +20,8 @@ namespace PresidentEvil
         {
             Start,
             GamePlaying,
-            GameOver,   
+            GamePaused,
+            GameOver 
         }
         public GameState CurrentGameState;
 

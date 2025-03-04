@@ -8,19 +8,27 @@ namespace PresidentEvil
 {
     public class Player : GameObject
     {
+        // Bullet Object of Player
         public Bullet Bullet;
+
+        // Movement
         public Keys Left, Right, Up, Down, Fire;
 
         // Animation
         public AnimationManager AnimationManager;
         public Dictionary<string, Animation> Animations;
+
+        // Properties
         private bool isJumping = false;
         private float jumpVelocity = -10f;
         private float gravity = 0.5f;
-        private float velocityY = 0;
         private bool facingRight = true;
         private bool isAttacking = false;
         private float attackTimer = 0f;
+
+        // Properties on ground
+        public bool OnGround { get; set; } = true;
+        public float VerticalVelocity { get; set; } = 0f;
 
         public Player(Dictionary<string, Animation> animations)
         {
@@ -52,21 +60,52 @@ namespace PresidentEvil
                 facingRight = true;
             }
 
-            // Jump logic
-            if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && !isJumping)
-            {
-                isJumping = true;
-                velocityY = jumpVelocity;
-                AnimationManager.Play(Animations["Jump"]);
-            }
+            // // Jump logic
+            // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && !isJumping)
+            // {
+            //     isJumping = true;
+            //     velocityY = jumpVelocity;
+            //     AnimationManager.Play(Animations["Jump"]);
+            // }
 
-            if (isJumping)
-            {
-                velocityY += gravity;
-                Position.Y = MathHelper.Clamp(Position.Y + velocityY, 0, Singleton.SCREENHEIGHT - 110);
+            // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
+            // {
+            //     isJumping = true;
+            //     OnGround = false;
+            //     velocityY = jumpVelocity;
+            //     AnimationManager.Play(Animations["Jump"]);
+            // }
 
-                isJumping = Position.Y < Singleton.SCREENHEIGHT - 110; // Reset jumping flag when landing
+            // if (isJumping)
+            // {
+            //     velocityY += gravity;
+            //     Position.Y = MathHelper.Clamp(Position.Y + velocityY, 0, Singleton.SCREENHEIGHT - 110);
+
+            //     isJumping = Position.Y < Singleton.SCREENHEIGHT - 110; // Reset jumping flag when landing
+            // }
+
+            // กด Up เพื่อกระโดด เมื่ออยู่บนพื้น
+        if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
+        {
+            isJumping = true;
+            OnGround = false;
+            VerticalVelocity = jumpVelocity;
+            AnimationManager.Play(Animations["Jump"]);
+        }
+
+        // หากอยู่ในสถานะกระโดด ให้ปรับปรุงความเร็วและตำแหน่งในแกน Y
+        if (isJumping)
+        {
+            VerticalVelocity += gravity;
+            Position.Y += VerticalVelocity;
+            // ตรวจสอบว่าถึงพื้นแล้วหรือไม่ (กำหนดตำแหน่งพื้นด้วย Singleton.SCREENHEIGHT - 110)
+            if (Position.Y >= Singleton.SCREENHEIGHT - 110)
+            {
+                Position.Y = Singleton.SCREENHEIGHT - 110;
+                isJumping = false;
+                VerticalVelocity = 0f;
             }
+        }
 
 
             // Fire bullet, but only if not attacking

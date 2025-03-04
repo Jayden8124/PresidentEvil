@@ -18,6 +18,9 @@ namespace PresidentEvil
         protected bool isDead = false;
         public float DistanceMoved;
 
+         // Property ใหม่ สำหรับเช็ค OnGround
+    public bool OnGround { get; set; } = false;
+
         public MonsterType(Dictionary<string, Animation> animations)
         {
             Animations = animations;
