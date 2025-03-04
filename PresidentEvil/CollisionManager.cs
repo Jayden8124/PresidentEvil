@@ -5,6 +5,50 @@ namespace PresidentEvil
 {
     public static class CollisionManager
     {
+        public static void ResolveCharacterCollision(GameObject a, GameObject b)
+        {
+            Rectangle rectA = a.Rectangle;
+            Rectangle rectB = b.Rectangle;
+
+            if (rectA.Intersects(rectB))
+            {
+                // คำนวณพื้นที่ทับซ้อน
+                Rectangle intersection = Rectangle.Intersect(rectA, rectB);
+
+                // ตรวจสอบแนวแกนที่มีการทับซ้อนน้อยกว่า
+                if (intersection.Width < intersection.Height)
+                {
+                    // เลื่อนในแกน X (แบ่งครึ่งให้ทั้งสองฝ่าย)
+                    float displacement = intersection.Width / 2f;
+                    if (rectA.Center.X < rectB.Center.X)
+                    {
+                        a.Position = new Vector2(a.Position.X - displacement, a.Position.Y);
+                        b.Position = new Vector2(b.Position.X + displacement, b.Position.Y);
+                    }
+                    else
+                    {
+                        a.Position = new Vector2(a.Position.X + displacement, a.Position.Y);
+                        b.Position = new Vector2(b.Position.X - displacement, b.Position.Y);
+                    }
+                }
+                else
+                {
+                    // เลื่อนในแกน Y (แบ่งครึ่งให้ทั้งสองฝ่าย)
+                    float displacement = intersection.Height / 2f;
+                    if (rectA.Center.Y < rectB.Center.Y)
+                    {
+                        a.Position = new Vector2(a.Position.X, a.Position.Y - displacement);
+                        b.Position = new Vector2(b.Position.X, b.Position.Y + displacement);
+                    }
+                    else
+                    {
+                        a.Position = new Vector2(a.Position.X, a.Position.Y + displacement);
+                        b.Position = new Vector2(b.Position.X, b.Position.Y - displacement);
+                    }
+                }
+            }
+        }
+
         // เมธอดสำหรับแก้ไขตำแหน่งเมื่อเกิดการชนกับ tile map
         public static void ResolveCollision(GameObject obj, List<Rectangle> collisionTiles)
         {
@@ -15,7 +59,7 @@ namespace PresidentEvil
                 {
                     // คำนวณพื้นที่ทับซ้อน
                     Rectangle intersection = Rectangle.Intersect(objRect, tile);
-                    
+
                     // แก้ไขการชนในแนวที่มีการทับซ้อนน้อยกว่า
                     if (intersection.Width < intersection.Height)
                     {

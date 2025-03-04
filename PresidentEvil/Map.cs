@@ -28,8 +28,8 @@ namespace PresidentEvil
         {
             textureMap = Content.Load<Texture2D>("TilesetGround");
             hitboxTexture = Content.Load<Texture2D>("hitbox");
-            fg = LoadMap("../../../TileMap/map_fg.csv");
-            collisions = LoadMap("../../../TileMap/map_hitblock.csv");
+            fg = LoadMap("../../../TileMap/demo3bg.csv");
+            collisions = LoadMap("../../../TileMap/demo3hitblock.csv");
         }
 
         public void Draw(SpriteBatch spriteBatch)

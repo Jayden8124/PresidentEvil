@@ -128,7 +128,7 @@ public class MainScene : Game
                 CollisionManager.ResolveCollision(Singleton.Instance.player, collisionTiles);
                 CollisionManager.UpdateOnGround(Singleton.Instance.player, collisionTiles);
 
-                // ตรวจสอบและแก้ไข collision สำหรับ Monster แต่ละตัว
+                // ตรวจสอบและแก้ไข collision สำหรับ Monster แต่ละตัว for Collision   
                 foreach (var obj in _gameObjects)
                 {
                     if (obj is MonsterType monster)
@@ -136,6 +136,28 @@ public class MainScene : Game
                         CollisionManager.ResolveCollision(monster, collisionTiles);
                         CollisionManager.UpdateOnGround(monster, collisionTiles);
                     }
+                }
+
+                // หลังจากที่ทำ Collision กับ tile map แล้ว
+                foreach (var obj in _gameObjects)
+                {
+                    if (obj is MonsterType monster)
+                    {
+                        if (GameObject.CheckAABBCollision(Singleton.Instance.player.Rectangle, monster.Rectangle))
+                        {
+                            // เมื่อ Player ชนกับ Monster ให้ทำอะไรบางอย่าง
+                            CollisionManager.ResolveCharacterCollision(Singleton.Instance.player, monster);
+                            // ตัวอย่าง: เปลี่ยนสถานะเกมเป็น GameOver
+                            Singleton.Instance.Timer += 20;
+                            // Singleton.Instance.CurrentGameState = Singleton.GameState.GameOver;
+                            // นอกจากนี้สามารถเพิ่มการลด HP ของ Player หรือผลกระทบอื่น ๆ ได้ตามที่ต้องการ
+                        }
+                    }
+                }
+
+                if(Singleton.Instance.player.Position.Y > 1500)
+                {
+                    Singleton.Instance.CurrentGameState = Singleton.GameState.GameOver;
                 }
                 break;
 
@@ -159,8 +181,6 @@ public class MainScene : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.White);
-
-        // _DrawUI(); // Draw UI
 
         switch (Singleton.Instance.CurrentGameState)
         {
@@ -193,6 +213,8 @@ public class MainScene : Game
                     /*------------------------------*/
 
                     _spriteBatch.Begin(transformMatrix: _camera.Transform);
+                    // _DrawUI();
+                    _spriteBatch.DrawString(_font, "Time: " + Singleton.Instance.Timer, new Vector2(10, 30), Color.Black);
 
                     _map.Draw(_spriteBatch);
 
@@ -220,7 +242,7 @@ public class MainScene : Game
     {
         Singleton.Instance.Score = 0;
         Singleton.Instance.Timer = 0;
-        Singleton.Instance.CurrentGameState = Singleton.GameState.Start;
+        Singleton.Instance.CurrentGameState = Singleton.GameState.GamePlaying;
 
         _gameObjects.Clear();
 
@@ -276,7 +298,7 @@ public class MainScene : Game
         {
             Name = "Player",
             Viewport = new Rectangle(5, 0, 43, 64),
-            Position = new Vector2(100, Singleton.SCREENHEIGHT - 550),
+            Position = new Vector2(100, 800),
             Left = Keys.Left,
             Right = Keys.Right,
             Up = Keys.Up,
@@ -308,19 +330,18 @@ public class MainScene : Game
         var _animationMonster = new AnimationMonster();
         _animationMonster.LoadAllAnimations(monsterTextures);
 
-        // สร้าง monster โดยเรียกใช้ animation ที่ต้องการ (เช่น SKLT_WR)
         MonsterType monster = new SKLT_WR(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_WR))
         {
             Name = "SKLT1",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(500, Singleton.SCREENHEIGHT - 70)
+            Position = new Vector2(200, Singleton.SCREENHEIGHT - 550)
         };
 
         MonsterType monster1 = new SL(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SL))
         {
             Name = "SL1",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(700, Singleton.SCREENHEIGHT - 70)
+            Position = new Vector2(300, Singleton.SCREENHEIGHT - 550)
         };
 
         _gameObjects.Add(monster);

@@ -42,102 +42,173 @@ namespace PresidentEvil
             base.Reset();
         }
 
+        // public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
+        // {
+        //     var velocity = Vector2.Zero;
+        //     bool isRunning = Singleton.Instance.CurrentKey.IsKeyDown(Keys.LeftShift);
+
+        //     float speed = isRunning ? 8f : 3f; // Normal speed = 3, Running speed = 8
+
+        //     if (Singleton.Instance.CurrentKey.IsKeyDown(Left))
+        //     {
+        //         velocity.X -= speed;
+        //         facingRight = false;
+        //     }
+        //     if (Singleton.Instance.CurrentKey.IsKeyDown(Right))
+        //     {
+        //         velocity.X += speed;
+        //         facingRight = true;
+        //     }
+
+        //     // // Jump logic
+        //     // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && !isJumping)
+        //     // {
+        //     //     isJumping = true;
+        //     //     velocityY = jumpVelocity;
+        //     //     AnimationManager.Play(Animations["Jump"]);
+        //     // }
+
+        //     // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
+        //     // {
+        //     //     isJumping = true;
+        //     //     OnGround = false;
+        //     //     velocityY = jumpVelocity;
+        //     //     AnimationManager.Play(Animations["Jump"]);
+        //     // }
+
+        //     // if (isJumping)
+        //     // {
+        //     //     velocityY += gravity;
+        //     //     Position.Y = MathHelper.Clamp(Position.Y + velocityY, 0, Singleton.SCREENHEIGHT - 110);
+
+        //     //     isJumping = Position.Y < Singleton.SCREENHEIGHT - 110; // Reset jumping flag when landing
+        //     // }
+
+        //     // กด Up เพื่อกระโดด เมื่ออยู่บนพื้น
+        // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
+        // {
+        //     isJumping = true;
+        //     OnGround = false;
+        //     VerticalVelocity = jumpVelocity;
+        //     AnimationManager.Play(Animations["Jump"]);
+        // }
+
+        // // หากอยู่ในสถานะกระโดด ให้ปรับปรุงความเร็วและตำแหน่งในแกน Y
+        // if (isJumping)
+        // {
+        //     VerticalVelocity += gravity;
+        //     Position.Y += VerticalVelocity;
+        //     // ตรวจสอบว่าถึงพื้นแล้วหรือไม่ (กำหนดตำแหน่งพื้นด้วย Singleton.SCREENHEIGHT - 110)
+        //     if (Position.Y >= Singleton.SCREENHEIGHT - 110)
+        //     {
+        //         Position.Y = Singleton.SCREENHEIGHT - 110;
+        //         isJumping = false;
+        //         VerticalVelocity = 0f;
+        //     }
+        // }
+
+
+        //     // Fire bullet, but only if not attacking
+        //     if (!isAttacking && Singleton.Instance.CurrentKey.IsKeyDown(Fire) &&
+        //         Singleton.Instance.PreviousKey.IsKeyUp(Fire))
+        //     {
+        //         var newBullet = Bullet.Clone() as Bullet;
+        //         newBullet.Position = Position;
+        //         newBullet.Reset();
+        //         _gameObjects.Add(newBullet);
+
+        //         // Play Attack Animation and Prevent Further Attacks Until It Finishes
+        //         AnimationManager.Play(Animations["Attack1"]);
+        //         isAttacking = true;
+        //         attackTimer = 0f;
+        //     }
+
+        //     // Ensure Attack Animation Plays Fully Before Allowing Another Attack
+        //     if (isAttacking)
+        //     {
+        //         attackTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        //         if (attackTimer >= Animations["Attack1"].FrameSpeed * Animations["Attack1"].FrameCount)
+        //         {
+        //             isAttacking = false;
+        //         }
+        //     }
+
+        //     // Prevent movement animations from overriding attack animation
+        //     if (!isAttacking && !isJumping)
+        //     {
+        //         if (velocity != Vector2.Zero)
+        //         {
+        //             AnimationManager.Play(isRunning ? Animations["Run"] : Animations["Walk"]);
+        //         }
+        //         else
+        //         {
+        //             AnimationManager.Play(Animations["Idle"]);
+        //         }
+        //     }
+
+        //     // Flip animation if changing direction
+        //     AnimationManager.FacingRight = facingRight;
+
+        //     // Update position
+        //     Position += velocity;
+
+        //     // Clamp player's position
+        //     // Position.X = MathHelper.Clamp(Position.X, 0, Singleton.SCREENWIDTH - 32);
+
+        //     // Update animation
+        //     AnimationManager.Update(gameTime);
+
+        //     base.Update(gameTime, _gameObjects);
+        // }
+
         public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
         {
             var velocity = Vector2.Zero;
             bool isRunning = Singleton.Instance.CurrentKey.IsKeyDown(Keys.LeftShift);
-
-            float speed = isRunning ? 8f : 3f; // Normal speed = 3, Running speed = 8
+            float speed = isRunning ? 8f : 3f; // Normal = 3, Run = 8
 
             if (Singleton.Instance.CurrentKey.IsKeyDown(Left))
             {
                 velocity.X -= speed;
-                facingRight = false;
             }
             if (Singleton.Instance.CurrentKey.IsKeyDown(Right))
             {
                 velocity.X += speed;
-                facingRight = true;
             }
-
-            // // Jump logic
-            // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && !isJumping)
-            // {
-            //     isJumping = true;
-            //     velocityY = jumpVelocity;
-            //     AnimationManager.Play(Animations["Jump"]);
-            // }
-
-            // if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
-            // {
-            //     isJumping = true;
-            //     OnGround = false;
-            //     velocityY = jumpVelocity;
-            //     AnimationManager.Play(Animations["Jump"]);
-            // }
-
-            // if (isJumping)
-            // {
-            //     velocityY += gravity;
-            //     Position.Y = MathHelper.Clamp(Position.Y + velocityY, 0, Singleton.SCREENHEIGHT - 110);
-
-            //     isJumping = Position.Y < Singleton.SCREENHEIGHT - 110; // Reset jumping flag when landing
-            // }
 
             // กด Up เพื่อกระโดด เมื่ออยู่บนพื้น
-        if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
-        {
-            isJumping = true;
-            OnGround = false;
-            VerticalVelocity = jumpVelocity;
-            AnimationManager.Play(Animations["Jump"]);
-        }
-
-        // หากอยู่ในสถานะกระโดด ให้ปรับปรุงความเร็วและตำแหน่งในแกน Y
-        if (isJumping)
-        {
-            VerticalVelocity += gravity;
-            Position.Y += VerticalVelocity;
-            // ตรวจสอบว่าถึงพื้นแล้วหรือไม่ (กำหนดตำแหน่งพื้นด้วย Singleton.SCREENHEIGHT - 110)
-            if (Position.Y >= Singleton.SCREENHEIGHT - 110)
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
             {
-                Position.Y = Singleton.SCREENHEIGHT - 110;
-                isJumping = false;
-                VerticalVelocity = 0f;
-            }
-        }
-
-
-            // Fire bullet, but only if not attacking
-            if (!isAttacking && Singleton.Instance.CurrentKey.IsKeyDown(Fire) &&
-                Singleton.Instance.PreviousKey.IsKeyUp(Fire))
-            {
-                var newBullet = Bullet.Clone() as Bullet;
-                newBullet.Position = Position;
-                newBullet.Reset();
-                _gameObjects.Add(newBullet);
-
-                // Play Attack Animation and Prevent Further Attacks Until It Finishes
-                AnimationManager.Play(Animations["Attack1"]);
-                isAttacking = true;
-                attackTimer = 0f;
+                isJumping = true;
+                OnGround = false;
+                VerticalVelocity = jumpVelocity;
+                AnimationManager.Play(Animations["Jump"]);
             }
 
-            // Ensure Attack Animation Plays Fully Before Allowing Another Attack
-            if (isAttacking)
+            // ถ้าอยู่ในสถานะกระโดดหรือกำลังตก (ไม่ติดพื้น) ให้อัพเดทแรงโน้มถ่วง
+            if (!OnGround)
             {
-                attackTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                VerticalVelocity += gravity;
+                Position.Y += VerticalVelocity;
 
-                if (attackTimer >= Animations["Attack1"].FrameSpeed * Animations["Attack1"].FrameCount)
-                {
-                    isAttacking = false;
-                }
+                // // ถ้าตำแหน่งเกินพื้นที่พื้น (สมมุติว่า Singleton.SCREENHEIGHT - 110 คือระดับพื้น)
+                // if (Position.Y >= Singleton.SCREENHEIGHT - 110)
+                // {
+                //     Position.Y = Singleton.SCREENHEIGHT - 110;
+                //     OnGround = true;
+                //     isJumping = false;
+                //     VerticalVelocity = 0f;
+                // }
             }
 
-            // Prevent movement animations from overriding attack animation
-            if (!isAttacking && !isJumping)
+            // อัพเดทการเคลื่อนที่ในแนว X (ไม่เกี่ยวกับแรงโน้มถ่วง)
+            Position += new Vector2(velocity.X, 0);
+
+            // เลือก Animation สำหรับการเดินหรือวิ่งถ้าไม่อยู่ในสถานะกระโดด
+            if (OnGround)
             {
-                if (velocity != Vector2.Zero)
+                if (velocity.X != 0)
                 {
                     AnimationManager.Play(isRunning ? Animations["Run"] : Animations["Walk"]);
                 }
@@ -147,20 +218,13 @@ namespace PresidentEvil
                 }
             }
 
-            // Flip animation if changing direction
-            AnimationManager.FacingRight = facingRight;
+            // ปรับการหันหน้าให้ถูกต้อง (ตัวอย่างนี้สามารถปรับปรุงเพิ่มเติมได้)
+            AnimationManager.FacingRight = velocity.X >= 0;
 
-            // Update position
-            Position += velocity;
-
-            // Clamp player's position
-            // Position.X = MathHelper.Clamp(Position.X, 0, Singleton.SCREENWIDTH - 32);
-
-            // Update animation
             AnimationManager.Update(gameTime);
-
             base.Update(gameTime, _gameObjects);
         }
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {

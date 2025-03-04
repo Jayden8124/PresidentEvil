@@ -78,7 +78,7 @@ namespace PresidentEvil
                         new Rectangle(208, 358, 51, 58),
                         new Rectangle(304, 359, 53, 57),
                         new Rectangle(400, 359, 61, 57)
-                    }, 0.10f, true)
+                    }, 0.25f, true)
                 },
                 { "Attack", new Animation(texture, new List<Rectangle> //wtf
                     {

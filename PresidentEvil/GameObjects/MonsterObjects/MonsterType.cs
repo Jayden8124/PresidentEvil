@@ -35,6 +35,13 @@ namespace PresidentEvil
 
         public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
         {
+            float gravityValue = 0.5f;  // กำหนดค่าแรงโน้มถ่วงสำหรับ Monster
+    if (!OnGround)
+    {
+        Velocity.Y += gravityValue;
+        Position.Y += Velocity.Y;
+    }
+    
             AnimationManager.Update(gameTime); 
             base.Update(gameTime, _gameObjects);
         }

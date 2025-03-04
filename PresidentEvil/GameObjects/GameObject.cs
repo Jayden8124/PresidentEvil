@@ -39,7 +39,7 @@ namespace PresidentEvil
         }
         public virtual void Update(GameTime gameTime, List<GameObject> gameObjects)
         {
-
+            
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
