@@ -16,7 +16,7 @@ namespace PresidentEvil
         public long Timer;
         public Random Random;
         public Player player;
-
+        
         // Map Hit Block
         public List<Rectangle> HitblockTiles;
 

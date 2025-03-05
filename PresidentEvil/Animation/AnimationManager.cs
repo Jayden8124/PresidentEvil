@@ -9,6 +9,7 @@ namespace PresidentEvil
         private float _timer;        // Tracks time between frames
         private int _currentFrame;   // Current frame index
         public Vector2 Position { get; set; }
+        public float Scale { get; set; } = 1f;
         public bool FacingRight { get; set; } = true; // Default: facing right
 
         public AnimationManager(Animation animation)
@@ -34,7 +35,7 @@ namespace PresidentEvil
             _currentFrame = 0;
         }
 
-       
+
         // Update the current frame based on elapsed time.
         public void Update(GameTime gameTime)
         {
@@ -63,10 +64,8 @@ namespace PresidentEvil
         public void Draw(SpriteBatch spriteBatch)
         {
             SpriteEffects spriteEffect = FacingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
             Rectangle source = _animation.Frames[_currentFrame];
-            spriteBatch.Draw(_animation.Texture, Position, source, Color.White, 0f,
-                             Vector2.Zero, 1f, spriteEffect, 0f);
+            spriteBatch.Draw(_animation.Texture, Position, source, Color.White, 0f,Vector2.Zero, Scale, spriteEffect, 0f);
         }
 
     }

@@ -12,10 +12,11 @@ namespace PresidentEvil
         public Bullet Bullet;
 
         // Properties Status
-        public int HealthPoint;
 
+        public int Health { get; set; }
+        public int Ultimate { get; set; }
         // Movement
-        public Keys Left, Right, Up, Down, Fire, Defend;
+        public Keys Left, Right, Up, Down, Fire, Defend, Attack2, Attack3;
 
         // Animation
         public AnimationManager AnimationManager;
@@ -30,6 +31,10 @@ namespace PresidentEvil
         private bool isDefending = false;
         private float attackTimer = 0f;
         private bool isDead = false;
+        private bool isInvincible = false;
+        private float invincibleTimer = 0f;
+        private float blinkTimer = 0f;
+        private bool isVisible = true;
 
         // Properties on ground
         public Player(Dictionary<string, Animation> animations)
@@ -41,7 +46,8 @@ namespace PresidentEvil
 
         public override void Reset()
         {
-            HealthPoint = 100;
+            Health = 4;
+            Ultimate = 0;
             base.Reset();
         }
 
@@ -52,6 +58,23 @@ namespace PresidentEvil
                 AnimationManager.Update(gameTime);
                 return;
             }
+            if (isInvincible)
+            {
+                invincibleTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                blinkTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (blinkTimer <= 0f)
+                {
+                    isVisible = !isVisible; // สลับการมองเห็น
+                    blinkTimer = 0.1f; // กระพริบทุก 0.1 วิ
+                }
+
+                if (invincibleTimer <= 0f)
+                {
+                    isInvincible = false;
+                    isVisible = true; // กลับมาแสดงผลปกติ
+                }
+            }
+
 
             var velocity = Vector2.Zero;
             bool isRunning = Singleton.Instance.CurrentKey.IsKeyDown(Keys.LeftShift);
@@ -79,7 +102,8 @@ namespace PresidentEvil
                 }
 
                 // กด Up เพื่อกระโดด เมื่ออยู่บนพื้น
-                if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround)
+                if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && OnGround &&
+                !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
                 {
                     isJumping = true;
                     OnGround = false;
@@ -104,29 +128,53 @@ namespace PresidentEvil
                 }
 
                 // Fire bullet, but only if not attacking
-                if (!isAttacking && Singleton.Instance.CurrentKey.IsKeyDown(Fire) && 
-                !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
+                if (!isAttacking)
                 {
-                    // var newBullet = Bullet.Clone() as Bullet;
-                    // newBullet.Position = Position;
-                    // newBullet.Reset();
-                    // _gameObjects.Add(newBullet);
-
-                    // Play Attack Animation and Prevent Further Attacks Until It Finishes
-                    AnimationManager.Play(Animations["Attack1"]);
-                    isAttacking = true;
-                    attackTimer = 0f;
+                    if (Singleton.Instance.CurrentKey.IsKeyDown(Fire) &&
+                        !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
+                    {
+                        AnimationManager.Play(Animations["Attack1"]);
+                        isAttacking = true;
+                        attackTimer = 0f;
+                        Ultimate += 1;
+                    }
+                    else if (Singleton.Instance.CurrentKey.IsKeyDown(Attack2) &&
+                        !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
+                    {
+                        AnimationManager.Play(Animations["Attack2"]);
+                        isAttacking = true;
+                        attackTimer = 0f;
+                        Ultimate = 0;
+                    }
+                    else if (Singleton.Instance.CurrentKey.IsKeyDown(Attack3) &&
+                        !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
+                    {
+                        AnimationManager.Play(Animations["Attack3"]);
+                        isAttacking = true;
+                        attackTimer = 0f;
+                    }
                 }
-            }
-
-            // Ensure Attack Animation Plays Fully Before Allowing Another Attack
-            if (isAttacking)
-            {
-                attackTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                if (attackTimer >= Animations["Attack1"].FrameSpeed * Animations["Attack1"].FrameCount)
+                // Ensure Attack Animation Plays Fully Before Allowing Another Attack
+                if (isAttacking)
                 {
-                    isAttacking = false;
+                    attackTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    foreach (var obj in _gameObjects)
+                    {
+                        if (obj is MonsterType monster)
+                        {
+                            if (GameObject.CheckAABBCollision(Rectangle, monster.Rectangle)) // Check if player is colliding with monster
+                            {
+                                // Call TakeDamage method on monster if colliding with attack
+                                monster.TakeDamage(50, Position); // You can adjust the damage value as needed
+                            }
+                        }
+                    }
+                    if (attackTimer >= Animations["Attack1"].FrameSpeed * Animations["Attack1"].FrameCount)
+                    {
+                        isAttacking = false;
+                    }
+
+
                 }
             }
 
@@ -154,21 +202,40 @@ namespace PresidentEvil
             base.Update(gameTime, _gameObjects);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector2 enemyPosition)
         {
-            HealthPoint -= isDefending ? 0 : damage;
-            if (HealthPoint <= 0)
+            if (isInvincible) return;
+
+            // เช็คว่าหันหน้าถูกด้านหรือไม่
+            bool isFacingEnemy = (enemyPosition.X > Position.X && facingRight) ||
+                                 (enemyPosition.X < Position.X && !facingRight);
+
+            // ถ้ากันแต่หันผิดด้าน -> โดนดาเมจ
+            Health -= (isDefending && !isFacingEnemy) ? damage : (isDefending ? 0 : damage);
+
+            if (Health <= 0)
             {
-                HealthPoint = 0;
+                Health = 0;
                 isDead = true;
                 AnimationManager.Play(Animations["Dead"]);
             }
+            else
+            {
+                isInvincible = true;
+                invincibleTimer = 1f; // อมตะ 2 วิ
+                blinkTimer = 0.1f; // ความเร็วกระพริบ
+            }
+
         }
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AnimationManager.Position = Position;
-            AnimationManager.Draw(spriteBatch);
+            if (isVisible)
+            {
+                AnimationManager.Position = Position;
+                AnimationManager.Draw(spriteBatch);
+            }
         }
     }
 }
