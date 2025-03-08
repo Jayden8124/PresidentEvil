@@ -134,10 +134,10 @@ public class MainScene : Game
                         }
                     }
                 }
-
+                Console.WriteLine(_numOjects);
                 if (Singleton.Instance.player.Position.Y > 1500)
                 {
-                    Singleton.Instance.CurrentGameState = Singleton.GameState.GameOver;
+                    // Singleton.Instance.CurrentGameState = Singleton.GameState.GameOver;
                 }
                 break;
 
@@ -151,6 +151,7 @@ public class MainScene : Game
 
         Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
         Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;
+
 
         base.Update(gameTime);
     }
@@ -241,7 +242,7 @@ public class MainScene : Game
         {
             Name = "Player",
             Viewport = new Rectangle(5, 0, 43, 64),
-            Position = new Vector2(1600, 800),
+            Position = new Vector2(12000, 100),
             Left = Keys.Left,
             Right = Keys.Right,
             Up = Keys.Up,

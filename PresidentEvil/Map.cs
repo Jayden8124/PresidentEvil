@@ -10,8 +10,10 @@ namespace PresidentEvil
     {
         private Texture2D textureMap;
         private Texture2D hitboxTexture;
+        private Texture2D propTexture;
         private Dictionary<Vector2, int> fg;
         private Dictionary<Vector2, int> collisions;
+        private Dictionary<Vector2, int> prop;
         public Rectangle hitbox;
         private GraphicsDevice _graphicsDevice;
 
@@ -28,8 +30,10 @@ namespace PresidentEvil
         {
             textureMap = Content.Load<Texture2D>("TilesetGround");
             hitboxTexture = Content.Load<Texture2D>("hitbox");
-            fg = LoadMap("../../../TileMap/demo3bg.csv");
-            collisions = LoadMap("../../../TileMap/demo3hitblock.csv");
+            propTexture = Content.Load<Texture2D>("prop"); 
+            fg = LoadMap("../../../TileMap/Map1_full_ground.csv");
+            collisions = LoadMap("../../../TileMap/Map1_full_hitblock.csv");
+            prop = LoadMap("../../../TileMap/Map1_full_prop.csv");
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -80,8 +84,9 @@ namespace PresidentEvil
                     pixel_tilesize
                 );
                 this.hitbox = hitbox;
-                // spriteBatch.Draw(hitboxTexture, drest, src, Color.White);
+                spriteBatch.Draw(hitboxTexture, drest, src, Color.White);
             }
+            
         }
 
         private Dictionary<Vector2, int> LoadMap(string filepath)

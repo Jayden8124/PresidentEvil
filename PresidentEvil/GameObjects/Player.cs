@@ -24,7 +24,7 @@ namespace PresidentEvil
 
         // Properties
         private bool isJumping = false;
-        private float jumpVelocity = -10f;
+        private float jumpVelocity = -15f;
         private float gravity = 0.5f;
         private bool facingRight = true;
         private bool isAttacking = false;
@@ -46,7 +46,7 @@ namespace PresidentEvil
 
         public override void Reset()
         {
-            Health = 4;
+            Health = 999;
             Ultimate = 0;
             base.Reset();
         }
