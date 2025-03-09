@@ -4,6 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/CutScreen/cutscene1.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/CutScreen/cutscene2.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Map/bg.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Map/prop.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Map/TilesetGround.png</File>
@@ -26,6 +28,8 @@
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/ultimate.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>cutscene1.png</File>
+    <File>cutscene2.png</File>
     <File>bg.png</File>
     <File>prop.png</File>
     <File>TilesetGround.png</File>

@@ -2,21 +2,24 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Text;
 
 namespace TheKnightAwakening
 {
     public class CutScene
     {
-        private Texture2D background;
         private List<string> messages;
+        private Dictionary<int, Texture2D> backgrounds;
         private int currentMessageIndex = 0;
         private string displayedText = "";
         private float textSpeed = 0.05f;
         private float textTimer = 0f;
         private int charIndex = 0;
+        private bool isTextFullyDisplayed = false;
+        private const int frameWidth = 851;
+        private const int frameHeight = 148;
         private GraphicsDevice _graphicsDevice;
         private SpriteFont _font;
-        private Texture2D _bg;
         private Texture2D _frame;
         public enum CutsceneType
         {
@@ -34,66 +37,83 @@ namespace TheKnightAwakening
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
             _font = Content.Load<SpriteFont>("game_font");
-            _bg = Content.Load<Texture2D>("bg");
             _frame = Content.Load<Texture2D>("message_box");
             currentCutscene = CutsceneType.StartGame;
-            LoadSceneData(_bg);
+            LoadSceneData(Content);
         }
 
-        private void LoadSceneData(Texture2D bg)
+        private void LoadSceneData(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
+            messages = new List<string>();
+            backgrounds = new Dictionary<int, Texture2D>();
+
             switch (currentCutscene)
             {
                 case CutsceneType.StartGame:
-                    background = bg;
-                    messages = new List<string>
-            {
-                "King: My knight, Medusa's curse has spread across our kingdom...",
-                "King: You must vanquish her and end this catastrophe!",
-                "Knight: Your Majesty, I shall obey your command..."
-            };
+                    messages.Add("King: My knight, Medusa's curse has spread across our kingdom...");
+                    backgrounds.Add(0, Content.Load<Texture2D>("cutscene1"));
 
+                    messages.Add("King: You must vanquish her and end this catastrophe!");
+                    backgrounds.Add(1, Content.Load<Texture2D>("cutscene1"));
+
+                    messages.Add("Knight: Your Majesty, I shall obey your command...");
+                    backgrounds.Add(2, Content.Load<Texture2D>("cutscene2"));
                     break;
 
                 case CutsceneType.BossRoom:
-                    background = bg;
-                    messages = new List<string>
-            {
-                "Medusa: Did he send you to 'free' the kingdom from my curse?",
-                "Medusa: This shall be your end!",
-                "Knight: Even if it costs me my life, I will stop you!"
-            };
+                    messages.Add("Medusa: Did he send you to 'free' the kingdom from my curse?");
+                    backgrounds.Add(0, Content.Load<Texture2D>("cutscene1"));
+
+                    messages.Add("Medusa: This shall be your end!");
+                    backgrounds.Add(1, Content.Load<Texture2D>("cutscene1"));
+
+                    messages.Add("Knight: Even if it costs me my life, I will stop you!");
+                    backgrounds.Add(2, Content.Load<Texture2D>("cutscene1"));
                     break;
 
                 case CutsceneType.BossDefeated:
-                    background = bg;
-                    messages = new List<string>
-            {
-                "Medusa: I... I only wanted him to feel my pain...",
-                "Knight: Who do you mean?",
-                "Medusa: Your king! He betrayed me..."
-            };
+                    messages.Add("Medusa: I... I only wanted him to feel my pain...");
+                    backgrounds.Add(0, Content.Load<Texture2D>("cutscene1"));
+
+                    messages.Add("Knight: Who do you mean?");
+                    backgrounds.Add(1, Content.Load<Texture2D>("cutscene1"));
+
+                    messages.Add("Medusa: Your king! He betrayed me...");
+                    backgrounds.Add(2, Content.Load<Texture2D>("cutscene1"));
                     break;
             }
         }
+
         public void Update(GameTime gameTime)
         {
-            textTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (!isTextFullyDisplayed)
+            {
+                textTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (textTimer >= textSpeed && charIndex < messages[currentMessageIndex].Length)
-            {
-                displayedText += messages[currentMessageIndex][charIndex];
-                charIndex++;
-                textTimer = 0f;
+                if (textTimer >= textSpeed && charIndex < messages[currentMessageIndex].Length)
+                {
+                    displayedText += messages[currentMessageIndex][charIndex];
+                    charIndex++;
+                    textTimer = 0f;
+                }
+
+
+                if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Space) && !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
+                {
+                    displayedText = messages[currentMessageIndex];
+                    charIndex = messages[currentMessageIndex].Length;
+                    isTextFullyDisplayed = true;
+                }
             }
-            else if (charIndex >= messages[currentMessageIndex].Length &&
-                     Keyboard.GetState().IsKeyDown(Keys.Space))
+            else if (isTextFullyDisplayed && Singleton.Instance.CurrentKey.IsKeyDown(Keys.Space) && !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
             {
+
                 if (currentMessageIndex < messages.Count - 1)
                 {
                     currentMessageIndex++;
                     displayedText = "";
                     charIndex = 0;
+                    isTextFullyDisplayed = false;
                 }
                 else
                 {
@@ -107,9 +127,36 @@ namespace TheKnightAwakening
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            // spriteBatch.Draw(background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
-            spriteBatch.DrawString(_font, displayedText, new Vector2(Singleton.SCREENWIDTH / 4, Singleton.SCREENHEIGHT / 2), Color.Black);
+            spriteBatch.Draw(backgrounds[currentMessageIndex], new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
+            spriteBatch.Draw(_frame, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
+            spriteBatch.DrawString(_font, WrapText(displayedText, frameWidth), new Vector2(240, 570), Color.White);
             spriteBatch.End();
+        }
+
+        private string WrapText(string text, float maxLineWidth)
+        {
+            string[] words = text.Split(' ');
+            StringBuilder wrappedText = new StringBuilder();
+            float lineWidth = 0f;
+            float spaceWidth = _font.MeasureString(" ").X;
+
+            foreach (string word in words)
+            {
+                Vector2 size = _font.MeasureString(word);
+
+                if (lineWidth + size.X < maxLineWidth)
+                {
+                    wrappedText.Append(word + " ");
+                    lineWidth += size.X + spaceWidth;
+                }
+                else
+                {
+                    wrappedText.Append("\n" + word + " ");
+                    lineWidth = size.X + spaceWidth;
+                }
+            }
+
+            return wrappedText.ToString();
         }
     }
 }

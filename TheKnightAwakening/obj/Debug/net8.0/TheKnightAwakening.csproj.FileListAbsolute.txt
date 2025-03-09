@@ -44,3 +44,5 @@ C:\Study-Comsci\Y3T2\COMGAME\Final\E\TheKnightAwakening\TheKnightAwakening\obj\D
 C:\Study-Comsci\Y3T2\COMGAME\Final\E\TheKnightAwakening\TheKnightAwakening\obj\Debug\net8.0\TheKnightAwakening.pdb
 C:\Study-Comsci\Y3T2\COMGAME\Final\E\TheKnightAwakening\TheKnightAwakening\obj\Debug\net8.0\TheKnightAwakening.genruntimeconfig.cache
 C:\Study-Comsci\Y3T2\COMGAME\Final\E\TheKnightAwakening\TheKnightAwakening\obj\Debug\net8.0\ref\TheKnightAwakening.dll
+C:\Study-Comsci\Y3T2\COMGAME\Final\E\TheKnightAwakening\TheKnightAwakening\bin\Debug\net8.0\Content\cutscene1.xnb
+C:\Study-Comsci\Y3T2\COMGAME\Final\E\TheKnightAwakening\TheKnightAwakening\bin\Debug\net8.0\Content\cutscene2.xnb
