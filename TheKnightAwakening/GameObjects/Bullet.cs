@@ -34,6 +34,7 @@ namespace TheKnightAwakening
             {
                 IsActive = false;
             }
+            Singleton.Instance.player.TakeDamage(10, this.Position);
             base.Update(gameTime, _gameObjects);
         }
     }

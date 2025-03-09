@@ -39,7 +39,7 @@ namespace TheKnightAwakening
 
         public override void Reset()
         {
-            Health = 4;
+            Health = 9999;
             Ultimate = 0;
             base.Reset();
         }

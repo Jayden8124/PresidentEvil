@@ -7,17 +7,19 @@ namespace TheKnightAwakening
 {
     public class SKLT_AC : MonsterType
     {
+        public Bullet Bullet;
+
         public SKLT_AC(Texture2D texture) : base(texture)
         {
 
         }
 
-         public SKLT_AC(Dictionary<string, Animation> animations) : base(animations)
+        public SKLT_AC(Dictionary<string, Animation> animations) : base(animations)
         {
-            
+
         }
-        
-         public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
+
+        public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
         {
             // รีเซ็ต flag ของ hitblock ในแต่ละเฟรม
             collidedWithHitblock = false;
@@ -57,17 +59,20 @@ namespace TheKnightAwakening
             // ส่วนการเคลื่อนที่และโจมตี
             if (gameTime.TotalGameTime.TotalSeconds > 1)
             {
-                if (GameObject.CheckAABBCollision(Singleton.Instance.player.Rectangle, this.Rectangle))
+                attackTimer = 0f;
+                if (DistanceMoved <= 200)
                 {
-                    // คำนวณระยะเวลาของแอนิเมชัน Attack
                     float attackAnimDuration = Animations["Attack"].FrameSpeed * Animations["Attack"].FrameCount;
                     attackTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (attackTimer <= -0.4f) // adjust animation when collision for attack
                     {
                         // เมื่อ delay หมดแล้ว ให้เล่นแอนิเมชัน Attack และโจมตี Player แล้วรีเซ็ต timer
                         AnimationManager.Play(Animations["Attack"]);
-                        Singleton.Instance.player.TakeDamage(this.Damage, this.Position);
                         attackTimer = attackDelay;
+                        var newBullet = Bullet.Clone() as Bullet;
+                        newBullet.Position = new Vector2(Rectangle.Width / 2 + Position.X - newBullet.Rectangle.Width / 2, Position.Y);
+                        newBullet.Reset();
+                        _gameObjects.Add(newBullet);
                     }
                     else
                     {
@@ -75,42 +80,33 @@ namespace TheKnightAwakening
                         if (attackTimer > attackDelay - attackAnimDuration)
                         {
                             AnimationManager.Play(Animations["Attack"]);
+                            var newBullet = Bullet.Clone() as Bullet;
+                            newBullet.Position = new Vector2(Rectangle.Width / 2 + Position.X - newBullet.Rectangle.Width / 2, Position.Y);
+                            newBullet.Reset();
                         }
-                        else
-                        {
-                            // ช่วงเวลาที่เหลือให้แสดงแอนิเมชัน Idle
-                            AnimationManager.Play(Animations["Idle"]);
-                        }
+                        // else
+                        // {
+                        //     // ช่วงเวลาที่เหลือให้แสดงแอนิเมชัน Idle
+                        //     AnimationManager.Play(Animations["Idle"]);
+                        // }
                     }
                 }
                 else
                 {
-                    // เมื่อไม่ชนกับ Player ให้รีเซ็ต timer และเคลื่อนที่ตามปกติ
-                    attackTimer = 0f;
-                    if (DistanceMoved <= 150)
+                    // เมื่อ Player ใกล้ (≤150) และอยู่ในแนวเดียวกัน ให้วิ่งเข้าหา
+                    if (Singleton.Instance.player.Position.X < Position.X)
                     {
-                        // เมื่อ Player ใกล้ (≤150) และอยู่ในแนวเดียวกัน ให้วิ่งเข้าหา
-                        if (Singleton.Instance.player.Position.X < Position.X)
-                        {
-                            Position = new Vector2(Position.X - runSpeed, Position.Y);
-                            moveDirection = -1;
-                            AnimationManager.FacingRight = false;
-                        }
-                        else
-                        {
-                            Position = new Vector2(Position.X + runSpeed, Position.Y);
-                            moveDirection = 1;
-                            AnimationManager.FacingRight = true;
-                        }
-                        // AnimationManager.Play(Animations["Run"]);
+                        Position = new Vector2(Position.X - runSpeed, Position.Y);
+                        moveDirection = -1;
+                        AnimationManager.FacingRight = false;
                     }
                     else
                     {
-                        // หากระยะห่าง > 150 ให้เดินตามทิศทางที่กำหนด
-                        Position = new Vector2(Position.X + walkSpeed * moveDirection, Position.Y);
-                        AnimationManager.FacingRight = moveDirection > 0;
-                        AnimationManager.Play(Animations["Walk"]);
+                        Position = new Vector2(Position.X + runSpeed, Position.Y);
+                        moveDirection = 1;
+                        AnimationManager.FacingRight = true;
                     }
+                    AnimationManager.Play(Animations["Walk"]);
                 }
             }
 

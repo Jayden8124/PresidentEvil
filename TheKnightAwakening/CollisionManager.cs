@@ -34,7 +34,7 @@ namespace TheKnightAwakening
                 else
                 {
                     // เลื่อนในแกน Y (แบ่งครึ่งให้ทั้งสองฝ่าย)
-                    float displacement = intersection.Height / 2f;
+                    float displacement = intersection.Height / 4f;
                     if (rectA.Center.Y < rectB.Center.Y)
                     {
                         a.Position = new Vector2(a.Position.X, a.Position.Y - displacement);

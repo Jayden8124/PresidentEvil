@@ -418,7 +418,13 @@ public class MainScene : Game
         {
             Name = "SKLT3",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(12500, 100)
+            Position = new Vector2(12500, 100),
+            Bullet = new Bullet(Content.Load<Texture2D>("skeleton_archer"))
+            {
+                Name = "BulletEnemy",
+                Viewport = new Rectangle(384, 65, 45, 3),
+                Velocity = new Vector2(0, 600f)
+            }
         };
 
         MonsterType boss = new MDS(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.MDS))
@@ -428,11 +434,11 @@ public class MainScene : Game
             Position = new Vector2(12000, 100)
         };
 
-        _gameObjects.Add(monster);
-        _gameObjects.Add(monster1);
-        _gameObjects.Add(monster2);
+        // _gameObjects.Add(monster);
+        // _gameObjects.Add(monster1);
+        // _gameObjects.Add(monster2);
         _gameObjects.Add(monster3);
-        _gameObjects.Add(boss);
+        // _gameObjects.Add(boss);
     }
 
     public void ResetObject()
