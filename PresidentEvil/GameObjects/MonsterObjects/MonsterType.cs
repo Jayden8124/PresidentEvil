@@ -12,11 +12,13 @@ namespace PresidentEvil
         public Dictionary<string, Animation> Animations;
 
         // Monster Status
-        protected bool facingLeft = true;
-        protected bool isAttacking = false;
-        protected bool isDead = false;
-        protected int Health = 100;
-        public float DistanceMoved;
+        protected float walkSpeed;
+        protected float runSpeed;
+        protected float DistanceMoved;
+        protected int moveDirection; // 1: เคลื่อนที่ไปทางขวา, -1: เคลื่อนที่ไปทางซ้าย
+        protected float attackTimer;
+        protected float attackDelay; // Delay 3 วินาทีระหว่างการโจมตี
+        protected bool collidedWithHitblock = false;
 
         public MonsterType(Dictionary<string, Animation> animations)
         {
@@ -32,19 +34,22 @@ namespace PresidentEvil
 
         public override void Update(GameTime gameTime, List<GameObject> _gameObjects)
         {
-            float gravityValue = 0.5f;  // กำหนดค่าแรงโน้มถ่วงสำหรับ Monster
-
             if (!OnGround)
             {
-                Velocity.Y += gravityValue;
+                Velocity.Y += Gravity;
                 Position.Y += Velocity.Y;
             }
             if (Health <= 0)
             {
                 Health = 0;
-                // isDead = true;
+                isDead = true;
                 AnimationManager.Play(Animations["Dead"]);
+
+                IsActive = false;
             }
+
+            DistanceMoved = Math.Abs(Position.X - Singleton.Instance.player.Position.X);
+
             AnimationManager.Update(gameTime);
             base.Update(gameTime, _gameObjects);
         }
@@ -65,13 +70,14 @@ namespace PresidentEvil
 
         public void TakeDamage(int damage, Vector2 enemyPosition)
         {
-            // // เช็คว่าหันหน้าถูกด้านหรือไม่
-            // bool isFacingEnemy = (enemyPosition.X > Position.X && facingLeft) ||
-            //                      (enemyPosition.X < Position.X && !facingLeft);
-
             // ถ้ากันแต่หันผิดด้าน -> โดนดาเมจ
             Health -= damage;
             Console.WriteLine("Monster Health: " + Health);
+
+        }
+
+        public void Offset()
+        {
 
         }
     }

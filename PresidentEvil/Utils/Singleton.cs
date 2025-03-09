@@ -16,21 +16,23 @@ namespace PresidentEvil
         public long Timer;
         public Random Random;
         public Player player;
-        
+
+
         // Map Hit Block
         public List<Rectangle> HitblockTiles;
-
 
         // Game state
         public enum GameState
         {
             Start,
+            Cutscene,
             GamePlaying,
             GamePaused,
-            GameOver 
+            GameOver
         }
         public GameState CurrentGameState;
 
+        // Input State
         public KeyboardState PreviousKey, CurrentKey;
         public MouseState PreviousMouse, CurrentMouse;
 

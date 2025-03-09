@@ -31,9 +31,9 @@ namespace PresidentEvil
             textureMap = Content.Load<Texture2D>("TilesetGround");
             hitboxTexture = Content.Load<Texture2D>("hitbox");
             propTexture = Content.Load<Texture2D>("prop"); 
-            fg = LoadMap("../../../TileMap/Map1_full_ground.csv");
-            collisions = LoadMap("../../../TileMap/Map1_full_hitblock.csv");
-            prop = LoadMap("../../../TileMap/Map1_full_prop.csv");
+            fg = LoadMap("../../../TileMap/2Map1_full_ground.csv");
+            collisions = LoadMap("../../../TileMap/2Map1_full_hitblock.csv");
+            prop = LoadMap("../../../TileMap/2Map1_full_prop.csv");
         }
 
         public void Draw(SpriteBatch spriteBatch)

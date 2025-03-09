@@ -25,6 +25,9 @@ public class MainScene : Game
 
     // Textures
     private Texture2D _background;
+    // Cutscene
+    private CutScene _cutscene;
+
 
     public MainScene()
     {
@@ -43,6 +46,7 @@ public class MainScene : Game
 
         _camera = new Camera(GraphicsDevice.Viewport); // Initialize camera
         _map = new Map(GraphicsDevice); // Initialize map
+        _cutscene = new CutScene(GraphicsDevice);
 
         base.Initialize();
     }
@@ -54,6 +58,7 @@ public class MainScene : Game
         _background = Content.Load<Texture2D>("bg");
         _font = Content.Load<SpriteFont>("game_font");
         _map.LoadContent(Content);
+        _cutscene.LoadContent(Content);
 
         Singleton.Instance.HitblockTiles = _map.GetCollisionRectangles();
 
@@ -70,19 +75,21 @@ public class MainScene : Game
         switch (Singleton.Instance.CurrentGameState)
         {
             case Singleton.GameState.Start:
-                if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed &&
-                    Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released)
+                if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released)
                 {
-                    Singleton.Instance.CurrentGameState = Singleton.GameState.GamePlaying;
+                    Singleton.Instance.CurrentGameState = Singleton.GameState.Cutscene;
                 }
                 break;
-
-            case Singleton.GameState.GamePlaying: // Missing Key State
-                if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed &&
-                    Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released)
-                {
-                    Singleton.Instance.CurrentGameState = Singleton.GameState.Start;
-                }
+            case Singleton.GameState.Cutscene:
+                _cutscene.Update(gameTime);
+                break;
+            case Singleton.GameState.GamePlaying:
+                // Mouse State
+                // if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed &&
+                //     Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released)
+                // {
+                //     Singleton.Instance.CurrentGameState = Singleton.GameState.Start;
+                // }
 
                 if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Escape) && !Singleton.Instance.CurrentKey.Equals(Singleton.Instance.PreviousKey))
                     Singleton.Instance.CurrentGameState = Singleton.GameState.GamePaused;
@@ -124,20 +131,19 @@ public class MainScene : Game
                     {
                         if (GameObject.CheckAABBCollision(Singleton.Instance.player.Rectangle, monster.Rectangle))
                         {
-                            // เมื่อ Player ชนกับ Monster ให้ทำอะไรบางอย่าง
                             CollisionManager.ResolveCharacterCollision(Singleton.Instance.player, monster);
-                            // ตัวอย่าง: เปลี่ยนสถานะเกมเป็น GameOver
-                            // Singleton.Instance.Timer += 20;
-                            Singleton.Instance.player.TakeDamage(1, obj.Position);
-                            // Singleton.Instance.CurrentGameState = Singleton.GameState.GameOver;
-                            // นอกจากนี้สามารถเพิ่มการลด HP ของ Player หรือผลกระทบอื่น ๆ ได้ตามที่ต้องการ
+
+                            if (!(monster is SKLT_WR))
+                            {
+                                Singleton.Instance.player.TakeDamage(1, obj.Position);
+                            }
                         }
                     }
                 }
-                Console.WriteLine(_numOjects);
-                if (Singleton.Instance.player.Position.Y > 1500)
+
+                if (Singleton.Instance.player.Position.Y > 50000)
                 {
-                    // Singleton.Instance.CurrentGameState = Singleton.GameState.GameOver;
+                    // Reset CheckPoint
                 }
                 break;
 
@@ -146,12 +152,16 @@ public class MainScene : Game
                     Singleton.Instance.CurrentGameState = Singleton.GameState.GamePlaying;
                 break;
             case Singleton.GameState.GameOver:
+                if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released)
+                {
+                    Singleton.Instance.CurrentGameState = Singleton.GameState.Start;
+                    Singleton.Instance.CurrentGameState = Singleton.GameState.GamePlaying;
+                }
                 break;
         }
 
         Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
         Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;
-
 
         base.Update(gameTime);
     }
@@ -164,17 +174,30 @@ public class MainScene : Game
         {
             case Singleton.GameState.Start:
                 {
+                    _DrawStart();
+                }
+                break;
+            case Singleton.GameState.Cutscene:
+                {
 
+                    _cutscene.Draw(_spriteBatch);
+                    Console.WriteLine("Cutscene");
                 }
                 break;
             case Singleton.GameState.GamePlaying:
                 {
-                    _DrawUI();
+                    _DrawPlaying();
                 }
                 break;
             case Singleton.GameState.GamePaused:
+                {
+                    _DrawPause();
+                }
                 break;
             case Singleton.GameState.GameOver:
+                {
+                    _DrawOver();
+                }
                 break;
         }
 
@@ -183,7 +206,40 @@ public class MainScene : Game
         base.Draw(gameTime);
     }
 
-    public void _DrawUI()
+    public void _DrawStart()
+    {
+        // Layer 1: Background
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        _spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
+
+        _spriteBatch.End();
+
+        // Layer 2: Button UI
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        // Code Button
+
+        _spriteBatch.End();
+    }
+    public void _DrawPause()
+    {
+        // Layer 1: Background
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        _spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
+
+        _spriteBatch.End();
+
+        // Layer 2: Button UI Pause 
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        // Code Button (Left Click Press)
+
+        _spriteBatch.End();
+    }
+
+    public void _DrawPlaying()
     {
         // Layer 1: Background
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
@@ -207,7 +263,24 @@ public class MainScene : Game
         // Layer 3: UI
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+        // Setting Menu Button 
         ResetUI();
+
+        _spriteBatch.End();
+    }
+    public void _DrawOver()
+    {
+        // Layer 1: Background
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        _spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
+
+        _spriteBatch.End();
+
+        // Layer 2: Button To Exit
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        // Code Button To Exit to Main Menu or Restart
 
         _spriteBatch.End();
     }
@@ -216,7 +289,7 @@ public class MainScene : Game
     {
         Singleton.Instance.Score = 0;
         Singleton.Instance.Timer = 0;
-        Singleton.Instance.CurrentGameState = Singleton.GameState.GamePlaying;
+        Singleton.Instance.CurrentGameState = Singleton.GameState.Cutscene;
 
         _gameObjects.Clear();
 
@@ -229,6 +302,51 @@ public class MainScene : Game
             s.Reset();
         }
     }
+
+    public void ResetUI() // Can into the player class
+    {
+        var healthAnimations = AnimationHealth.LoadAnimations(Content.Load<Texture2D>("health_bar_red"));
+
+        // สมมุติว่า HP max คือ 100
+        int health = Singleton.Instance.player.Health;
+        Animation hpAnimation;
+
+        if (health == 4)
+            hpAnimation = healthAnimations["HP100"];
+        else if (health == 3)
+            hpAnimation = healthAnimations["HP75"];
+        else if (health == 2)
+            hpAnimation = healthAnimations["HP50"];
+        else if (health == 1)
+            hpAnimation = healthAnimations["HP25"];
+        else
+            hpAnimation = healthAnimations["HP0"];
+
+        AnimationManager hpAnimationManager = new AnimationManager(hpAnimation);
+        hpAnimationManager.Position = new Vector2(57, 41);
+        hpAnimationManager.Scale = 2f;
+        hpAnimationManager.Draw(_spriteBatch);
+
+        var ultAnimations = AnimationUltimateCharge.LoadAnimations(Content.Load<Texture2D>("ult_charge"));
+        Animation _ultAnimation;
+
+        int ult = Singleton.Instance.player.Ultimate;
+
+        if (ult >= 4)
+            _ultAnimation = ultAnimations["ULT1"];
+        else if (ult == 3)
+            _ultAnimation = ultAnimations["ULT2"];
+        else if (ult == 2)
+            _ultAnimation = ultAnimations["ULT3"];
+        else
+            _ultAnimation = ultAnimations["ULT4"];
+
+        AnimationManager ultAnimationManager = new AnimationManager(_ultAnimation);
+        ultAnimationManager.Position = new Vector2(287, 35);
+        ultAnimationManager.Scale = 1.5f;
+        ultAnimationManager.Draw(_spriteBatch);
+    }
+
 
     public void ResetPlayer()
     {
@@ -282,103 +400,43 @@ public class MainScene : Game
         {
             Name = "SKLT1",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(1600, 800)
+            Position = new Vector2(12200, 100)
         };
 
         MonsterType monster1 = new SL(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SL))
         {
             Name = "SL1",
             Viewport = new Rectangle(0, 0, 36, 35),
-            Position = new Vector2(2100, 200)
+            Position = new Vector2(12300, 100)
         };
 
         MonsterType monster2 = new SKLT_SM(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_SM))
         {
             Name = "SKLT2",
-            Viewport = new Rectangle(0, 0, 36, 75),
-            Position = new Vector2(1600, 800)
+            Viewport = new Rectangle(0, 0, 36, 90),
+            Position = new Vector2(12400, 100)
         };
 
         MonsterType monster3 = new SKLT_AC(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.SKLT_AC))
         {
             Name = "SKLT3",
             Viewport = new Rectangle(0, 0, 36, 65),
-            Position = new Vector2(2300, 800)
+            Position = new Vector2(12500, 100)
         };
 
         MonsterType boss = new MDS(_animationMonster.GetAnimations(AnimationMonster.AnimationMonsterType.MDS))
         {
             Name = "MDS1",
             Viewport = new Rectangle(0, 0, 65, 85),
-            Position = new Vector2(2300, 200)
+            Position = new Vector2(12000, 100)
         };
 
-        // _gameObjects.Add(monster);
-        // _gameObjects.Add(monster1);
-        // _gameObjects.Add(monster2);
+        _gameObjects.Add(monster);
+        _gameObjects.Add(monster1);
+        _gameObjects.Add(monster2);
         _gameObjects.Add(monster3);
-        // _gameObjects.Add(boss);
+        _gameObjects.Add(boss);
     }
-
-    // public void ResetUI()
-    // {
-    //     Texture2D _health = Content.Load<Texture2D>("health_bar_red");
-    //     Texture2D _ult = Content.Load<Texture2D>("ult_charge");
-
-    //     // ดึงแอนิเมชัน ULT1 จาก AnimationHealth
-    //     var healthAnimations = AnimationHealth.LoadAnimations(_health);
-    //     Animation hp100Animation = healthAnimations["HP100"];
-    //     // สร้าง AnimationManager สำหรับ HP100
-    //     AnimationManager hpAnimationManager = new AnimationManager(hp100Animation);
-    //     hpAnimationManager.Position = new Vector2(57, 41);
-    //     hpAnimationManager.Scale = 2f; // กำหนดตำแหน่งที่ต้องการวาดบน UI
-    //     hpAnimationManager.Draw(_spriteBatch);
-    // }
-
-    public void ResetUI() // Can into the player class
-    {
-        var healthAnimations = AnimationHealth.LoadAnimations(Content.Load<Texture2D>("health_bar_red"));
-
-        // สมมุติว่า HP max คือ 100
-        int health = Singleton.Instance.player.Health;
-        Animation hpAnimation;
-
-        if (health == 4)
-            hpAnimation = healthAnimations["HP100"];
-        else if (health == 3)
-            hpAnimation = healthAnimations["HP75"];
-        else if (health == 2)
-            hpAnimation = healthAnimations["HP50"];
-        else if (health == 1)
-            hpAnimation = healthAnimations["HP25"];
-        else 
-            hpAnimation = healthAnimations["HP0"];
-
-        AnimationManager hpAnimationManager = new AnimationManager(hpAnimation);
-        hpAnimationManager.Position = new Vector2(57, 41);
-        hpAnimationManager.Scale = 2f; 
-        hpAnimationManager.Draw(_spriteBatch);
-
-        var ultAnimations = AnimationUltimateCharge.LoadAnimations(Content.Load<Texture2D>("ult_charge"));
-        Animation _ultAnimation;
-
-        int ult = Singleton.Instance.player.Ultimate;
-
-        if (ult >= 4)
-            _ultAnimation = ultAnimations["ULT1"];
-        else if (ult == 3)
-            _ultAnimation = ultAnimations["ULT2"];
-        else if (ult == 2)
-            _ultAnimation = ultAnimations["ULT3"];
-        else 
-            _ultAnimation = ultAnimations["ULT4"];
-
-        AnimationManager ultAnimationManager = new AnimationManager(_ultAnimation);
-        ultAnimationManager.Position = new Vector2(287, 35);
-        ultAnimationManager.Scale = 1.5f;
-        ultAnimationManager.Draw(_spriteBatch);
-    }
-
 
     public void ResetObject()
     {

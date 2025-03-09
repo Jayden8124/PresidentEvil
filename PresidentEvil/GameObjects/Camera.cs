@@ -19,10 +19,10 @@ namespace PresidentEvil
         {
             // Calculate the desired position
             float targetX = target.Position.X - _viewport.Width / 2;
-            float targetY = target.Position.Y - _viewport.Height / 2;
+            float targetY = target.Position.Y - _viewport.Height / 2 - 150; // Fix Position
 
             // Proper clamping
-            float clampedX = MathHelper.Clamp(targetX, 0, Singleton.SCREENWIDTH + 200 - _viewport.Width);
+            float clampedX = MathHelper.Clamp(targetX, 0, Singleton.SCREENWIDTH + 200  - _viewport.Width);
             float clampedY = MathHelper.Clamp(targetY, 0, Singleton.SCREENHEIGHT - _viewport.Height);
 
             // Smooth movement with Lerp

@@ -11,26 +11,19 @@ namespace PresidentEvil
         // Bullet Object of Player
         public Bullet Bullet;
 
-        // Properties Status
-
-        public int Health { get; set; }
-        public int Ultimate { get; set; }
-        // Movement
-        public Keys Left, Right, Up, Down, Fire, Defend, Attack2, Attack3;
-
         // Animation
         public AnimationManager AnimationManager;
         public Dictionary<string, Animation> Animations;
 
+        // Properties Status
+        public int Ultimate { get; set; }
+        // Movement
+        public Keys Left, Right, Up, Down, Fire, Defend, Attack2, Attack3;
+
         // Properties
-        private bool isJumping = false;
-        private float jumpVelocity = -15f;
-        private float gravity = 0.5f;
-        private bool facingRight = true;
         private bool isAttacking = false;
         private bool isDefending = false;
         private float attackTimer = 0f;
-        private bool isDead = false;
         private bool isInvincible = false;
         private float invincibleTimer = 0f;
         private float blinkTimer = 0f;
@@ -46,7 +39,7 @@ namespace PresidentEvil
 
         public override void Reset()
         {
-            Health = 999;
+            Health = 4;
             Ultimate = 0;
             base.Reset();
         }
@@ -93,12 +86,12 @@ namespace PresidentEvil
                 if (Singleton.Instance.CurrentKey.IsKeyDown(Left))
                 {
                     velocity.X -= speed;
-                    facingRight = false;
+                    AnimationManager.FacingRight = false;
                 }
                 if (Singleton.Instance.CurrentKey.IsKeyDown(Right))
                 {
                     velocity.X += speed;
-                    facingRight = true;
+                    AnimationManager.FacingRight = true;
                 }
 
                 // กด Up เพื่อกระโดด เมื่ออยู่บนพื้น
@@ -107,24 +100,15 @@ namespace PresidentEvil
                 {
                     isJumping = true;
                     OnGround = false;
-                    Velocity.Y = jumpVelocity;
+                    Velocity.Y = -15;
                     AnimationManager.Play(Animations["Jump"]);
                 }
 
                 // ถ้าอยู่ในสถานะกระโดดหรือกำลังตก (ไม่ติดพื้น) ให้อัพเดทแรงโน้มถ่วง
                 if (!OnGround)
                 {
-                    Velocity.Y += gravity;
+                    Velocity.Y += Gravity;
                     Position.Y += Velocity.Y;
-
-                    // // ถ้าตำแหน่งเกินพื้นที่พื้น (สมมุติว่า Singleton.SCREENHEIGHT - 110 คือระดับพื้น)
-                    // if (Position.Y >= Singleton.SCREENHEIGHT - 110)
-                    // {
-                    //     Position.Y = Singleton.SCREENHEIGHT - 110;
-                    //     OnGround = true;
-                    //     isJumping = false;
-                    //     VerticalVelocity = 0f;
-                    // }
                 }
 
                 // Fire bullet, but only if not attacking
@@ -173,8 +157,6 @@ namespace PresidentEvil
                     {
                         isAttacking = false;
                     }
-
-
                 }
             }
 
@@ -195,7 +177,7 @@ namespace PresidentEvil
             }
 
             // ปรับการหันหน้าให้ถูกต้อง (ตัวอย่างนี้สามารถปรับปรุงเพิ่มเติมได้)
-            AnimationManager.FacingRight = facingRight;
+            AnimationManager.FacingRight = AnimationManager.FacingRight;
 
             AnimationManager.Update(gameTime);
             Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;
@@ -207,8 +189,8 @@ namespace PresidentEvil
             if (isInvincible) return;
 
             // เช็คว่าหันหน้าถูกด้านหรือไม่
-            bool isFacingEnemy = (enemyPosition.X > Position.X && facingRight) ||
-                                 (enemyPosition.X < Position.X && !facingRight);
+            bool isFacingEnemy = (enemyPosition.X > Position.X && AnimationManager.FacingRight) ||
+                                 (enemyPosition.X < Position.X && !AnimationManager.FacingRight);
 
             // ถ้ากันแต่หันผิดด้าน -> โดนดาเมจ
             Health -= (isDefending && !isFacingEnemy) ? damage : (isDefending ? 0 : damage);
@@ -227,7 +209,6 @@ namespace PresidentEvil
             }
 
         }
-
 
         public override void Draw(SpriteBatch spriteBatch)
         {

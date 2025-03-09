@@ -15,7 +15,11 @@ namespace PresidentEvil
         public string Name; // Check Collision
         public bool IsActive; // Check is show in screen
         public Rectangle Viewport; // View of the object
-
+        protected float Gravity; 
+        public bool isDead;
+        public int Health;
+        protected int Damage;
+        protected bool isJumping;
 
         // Properties Other
         public bool OnGround { get; set; } = false;
@@ -30,6 +34,9 @@ namespace PresidentEvil
             Position = Vector2.Zero;
             Scale = Vector2.One;
             Rotation = 0f;
+            Gravity = 0.5f;
+            isJumping = false;
+            isDead = false;
             IsActive = true;
         }
 
@@ -39,6 +46,9 @@ namespace PresidentEvil
             Position = Vector2.Zero;
             Scale = Vector2.One;
             Rotation = 0f;
+            Gravity = 0.5f;
+            isJumping = false;
+            isDead = false;
             IsActive = true;
         }
         public virtual void Update(GameTime gameTime, List<GameObject> gameObjects)

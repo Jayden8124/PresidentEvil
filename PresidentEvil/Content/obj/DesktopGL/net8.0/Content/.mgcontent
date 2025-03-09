@@ -4,25 +4,25 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/bg.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/blue_slime.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/chest.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/game_font.spritefont</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/gold_coin.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/health_bar_blue.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/health_bar_red.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/health_potion.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/hitbox.PNG</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/icon.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/map.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/medusa.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/player.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/prop.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/skeleton_archer.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/skeleton_spearman.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/skeleton_warrior.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/TilesetGround.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/D/PresidentEvil/PresidentEvil/Content/ult_charge.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/bg.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/blue_slime.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/chest.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/game_font.spritefont</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/gold_coin.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/health_bar_blue.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/health_bar_red.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/health_potion.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/hitbox.PNG</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/icon.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/map.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/medusa.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/player.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/prop.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/skeleton_archer.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/skeleton_spearman.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/skeleton_warrior.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/TilesetGround.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/President_Evil/PresidentEvil/PresidentEvil/Content/ult_charge.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

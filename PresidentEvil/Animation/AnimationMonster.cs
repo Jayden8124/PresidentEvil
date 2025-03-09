@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace PresidentEvil
 {
-    // Base class สำหรับ Animation ของ Monster
     public class AnimationMonster
     {
         public Dictionary<AnimationMonsterType, Dictionary<string, Animation>> AnimationMonsterList = new();
@@ -53,7 +52,7 @@ namespace PresidentEvil
         {
             return new Dictionary<string, Animation>
             {
-                { "Idle", new Animation(texture, new List<Rectangle>//wtf
+                { "Idle", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(16, 22, 53, 58),
                         new Rectangle(112, 22, 53, 58)
@@ -84,7 +83,7 @@ namespace PresidentEvil
                         new Rectangle(400, 359, 61, 57)
                     }, 0.25f, true)
                 },
-                { "Attack", new Animation(texture, new List<Rectangle> //wtf
+                { "Attack", new Animation(texture, new List<Rectangle> 
                     {
                         new Rectangle(13, 194, 47, 62),
                         new Rectangle(94, 194, 53, 62),
@@ -117,7 +116,7 @@ namespace PresidentEvil
         {
             return new Dictionary<string, Animation>
             {
-                { "Idle", new Animation(texture, new List<Rectangle>//wtf
+                { "Idle", new Animation(texture, new List<Rectangle> 
                     {
                         new Rectangle(17, 32, 37, 64),
                         new Rectangle(145, 32, 37, 64)
@@ -327,7 +326,7 @@ namespace PresidentEvil
         {
             return new Dictionary<string, Animation>
             {
-                { "Idle", new Animation(texture, new List<Rectangle>//wtf
+                { "Idle", new Animation(texture, new List<Rectangle>
                     {
                         new Rectangle(31, 419, 65, 77),
                         new Rectangle(159, 418, 65, 78),
@@ -366,7 +365,7 @@ namespace PresidentEvil
                         new Rectangle(773, 552, 117, 81)
                     }, 0.25f, true)
                 },
-                { "Attack", new Animation(texture, new List<Rectangle> //wtf
+                { "Attack", new Animation(texture, new List<Rectangle> 
                     {
                         new Rectangle(39, 45, 56, 83),
                         new Rectangle(168, 44, 56, 84),
