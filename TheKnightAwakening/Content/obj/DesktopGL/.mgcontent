@@ -21,7 +21,7 @@
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/game_font.spritefont</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/health_bar.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/hitbox.PNG</File>
-    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/icon_game.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/Icon_game.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/icon.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/menu.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/message_box.png</File>
@@ -45,7 +45,7 @@
     <File>game_font.spritefont</File>
     <File>health_bar.png</File>
     <File>hitbox.PNG</File>
-    <File>icon_game.png</File>
+    <File>Icon_game.png</File>
     <File>icon.png</File>
     <File>menu.png</File>
     <File>message_box.png</File>

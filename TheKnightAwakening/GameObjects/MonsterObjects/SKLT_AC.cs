@@ -66,6 +66,7 @@ namespace TheKnightAwakening
                     attackTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (attackTimer <= -0.4f) // adjust animation when collision for attack
                     {
+                        Console.WriteLine("Attack");
                         // เมื่อ delay หมดแล้ว ให้เล่นแอนิเมชัน Attack และโจมตี Player แล้วรีเซ็ต timer
                         AnimationManager.Play(Animations["Attack"]);
                         attackTimer = attackDelay;
@@ -74,25 +75,10 @@ namespace TheKnightAwakening
                         newBullet.Reset();
                         _gameObjects.Add(newBullet);
                     }
-                    else
-                    {
-                        // ถ้า attackTimer ยังอยู่ในช่วงแรกของ delay (แสดงการโจมตี)
-                        if (attackTimer > attackDelay - attackAnimDuration)
-                        {
-                            AnimationManager.Play(Animations["Attack"]);
-                            var newBullet = Bullet.Clone() as Bullet;
-                            newBullet.Position = new Vector2(Rectangle.Width / 2 + Position.X - newBullet.Rectangle.Width / 2, Position.Y);
-                            newBullet.Reset();
-                        }
-                        // else
-                        // {
-                        //     // ช่วงเวลาที่เหลือให้แสดงแอนิเมชัน Idle
-                        //     AnimationManager.Play(Animations["Idle"]);
-                        // }
-                    }
                 }
                 else
                 {
+                    attackTimer = 0f;
                     // เมื่อ Player ใกล้ (≤150) และอยู่ในแนวเดียวกัน ให้วิ่งเข้าหา
                     if (Singleton.Instance.player.Position.X < Position.X)
                     {

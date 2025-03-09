@@ -212,7 +212,7 @@
 /processorParam:TextureFormat=Color
 /build:UI/hitbox.PNG;hitbox.PNG
 
-#begin UI/icon_game.png
+#begin UI/Icon_game.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -222,7 +222,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/icon_game.png;icon_game.png
+/build:UI/Icon_game.png;Icon_game.png
 
 #begin UI/icon.png
 /importer:TextureImporter
