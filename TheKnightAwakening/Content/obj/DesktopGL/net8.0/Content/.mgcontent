@@ -4,28 +4,29 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/CutScreen/cutscene1.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/CutScreen/cutscene2.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Map/bg.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Map/prop.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Map/TilesetGround.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/blue_slime.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/chest.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/gold_coin.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/health_potion.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/medusa.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/player.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_archer.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_spearman.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_warrior.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/game_font.spritefont</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/health_bar.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/hitbox.PNG</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/Icon_game.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/icon.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/menu.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/message_box.png</File>
-    <File>C:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/UI/ultimate.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/CutScreen/cutscene1.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/CutScreen/cutscene2.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Map/bg.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Map/prop.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Map/TilesetGround.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/blue_slime.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/chest.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/gold_coin.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/health_potion.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/medusa.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/player.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/pole.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_archer.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_spearman.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_warrior.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/game_font.spritefont</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/health_bar.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/hitbox.PNG</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/Icon_game.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/icon.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/menu.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/message_box.png</File>
+    <File>/Users/jay/KMITL/Year_3_2567/Semester_2/Computer_Game_Programming/The_Knight_Awakening/TheKnightAwakening/TheKnightAwakening/Content/UI/ultimate.png</File>
   </SourceFiles>
   <DestFiles>
     <File>cutscene1.png</File>
@@ -39,6 +40,7 @@
     <File>health_potion.png</File>
     <File>medusa.png</File>
     <File>player.png</File>
+    <File>pole.png</File>
     <File>skeleton_archer.png</File>
     <File>skeleton_spearman.png</File>
     <File>skeleton_warrior.png</File>

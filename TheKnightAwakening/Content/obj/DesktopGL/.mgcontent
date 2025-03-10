@@ -15,6 +15,7 @@
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/health_potion.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/medusa.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/player.png</File>
+    <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/pole.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_archer.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_spearman.png</File>
     <File>c:/Study-Comsci/Y3T2/COMGAME/Final/E/TheKnightAwakening/TheKnightAwakening/Content/Objects/skeleton_warrior.png</File>
@@ -39,6 +40,7 @@
     <File>health_potion.png</File>
     <File>medusa.png</File>
     <File>player.png</File>
+    <File>pole.png</File>
     <File>skeleton_archer.png</File>
     <File>skeleton_spearman.png</File>
     <File>skeleton_warrior.png</File>

@@ -121,6 +121,7 @@ namespace TheKnightAwakening
         public override void Reset()
         {
             Health = 5;
+            Damage = 20;
             walkSpeed = 1f;
             runSpeed = 2f;
             moveDirection = -1;

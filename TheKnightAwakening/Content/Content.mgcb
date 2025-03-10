@@ -145,6 +145,18 @@
 /processorParam:TextureFormat=Color
 /build:Objects/player.png;player.png
 
+#begin Objects/pole.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/pole.png;pole.png
+
 #begin Objects/skeleton_archer.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -21,6 +21,7 @@ namespace TheKnightAwakening
         public Keys Left, Right, Up, Down, Fire, Defend, Attack2, Attack3;
 
         // Properties
+        private int maxHealth;
         private bool isAttacking = false;
         private bool isDefending = false;
         private float attackTimer = 0f;
@@ -29,17 +30,22 @@ namespace TheKnightAwakening
         private float blinkTimer = 0f;
         private bool isVisible = true;
 
+        // Checkpoint
+        public Vector2 LastCheckpoint { get; set; }
+
         // Properties on ground
         public Player(Dictionary<string, Animation> animations)
         {
             Animations = animations;
             AnimationManager = new AnimationManager(Animations["Idle"]);
+            LastCheckpoint = Position;
             IsActive = true;
         }
 
         public override void Reset()
         {
-            Health = 9999;
+            Health = 100;
+            maxHealth = 100;
             Ultimate = 0;
             base.Reset();
         }
@@ -149,7 +155,8 @@ namespace TheKnightAwakening
                             if (GameObject.CheckAABBCollision(Rectangle, monster.Rectangle)) // Check if player is colliding with monster
                             {
                                 // Call TakeDamage method on monster if colliding with attack
-                                monster.TakeDamage(50, Position); // You can adjust the damage value as needed
+                                monster.TakeDamage(5, Position); // You can adjust the damage value as needed
+                                Heal(10);
                             }
                         }
                     }
@@ -193,21 +200,29 @@ namespace TheKnightAwakening
                                  (enemyPosition.X < Position.X && !AnimationManager.FacingRight);
 
             // ถ้ากันแต่หันผิดด้าน -> โดนดาเมจ
-            Health -= (isDefending && !isFacingEnemy) ? damage : (isDefending ? 0 : damage);
-
-            if (Health <= 0)
+            damage = (isDefending && !isFacingEnemy) ? damage : (isDefending ? 0 : damage);
+            if (damage > 0)
             {
-                Health = 0;
-                isDead = true;
-                AnimationManager.Play(Animations["Dead"]);
+                Health -= damage;
+                if (Health <= 0)
+                {
+                    Health = 0;
+                    isDead = true;
+                    AnimationManager.Play(Animations["Dead"]);
+                }
+                else
+                {
+                    isInvincible = true;
+                    invincibleTimer = 1f; // อมตะ 2 วิ
+                    blinkTimer = 0.1f; // ความเร็วกระพริบ
+                }
             }
-            else
-            {
-                isInvincible = true;
-                invincibleTimer = 1f; // อมตะ 2 วิ
-                blinkTimer = 0.1f; // ความเร็วกระพริบ
-            }
+        }
 
+        public void Heal(int heal)
+        {
+            this.Health += heal;
+            if (this.Health > maxHealth) this.Health = maxHealth; 
         }
 
         public override void Draw(SpriteBatch spriteBatch)

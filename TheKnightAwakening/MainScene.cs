@@ -19,12 +19,24 @@ public class MainScene : Game
     List<GameObject> _gameObjects;
     public int _numOjects;
 
+    // Health Bar
+    private Healthbar _healthbar;
+    private HealthbarAnimated _healthbarAnimated;
+
+    // Ultimate
+    private Ultimatebar _ultimatebar;
+    private UltimatebarAnimated _ultimatebarAnimated;
+
     // Camera & Map
     private Camera _camera;
     private Map _map;
 
     // Textures
-    private Texture2D _background;
+    private Texture2D _background, _menuIcon, _menuButton;
+
+    // Button
+    Rectangle _menuPlay, _menuExit;
+
     // Cutscene
     private CutScene _cutscene;
 
@@ -48,6 +60,9 @@ public class MainScene : Game
         _map = new Map(GraphicsDevice); // Initialize map
         _cutscene = new CutScene(GraphicsDevice);
 
+        _menuPlay = new Rectangle(565, 410, 165, 98);
+        _menuExit = new Rectangle(565, 524, 165, 98);
+
         base.Initialize();
     }
 
@@ -56,7 +71,26 @@ public class MainScene : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         _background = Content.Load<Texture2D>("bg");
+        _menuIcon = Content.Load<Texture2D>("icon_game");
+        _menuButton = Content.Load<Texture2D>("menu");
         _font = Content.Load<SpriteFont>("game_font");
+
+        Texture2D healthbarTexture = Content.Load<Texture2D>("health_bar");
+        Rectangle bgSource = new Rectangle(0, 0, 163, 23);
+        Rectangle fgSource = new Rectangle(21, 36, 140, 7);
+
+        _healthbar = new Healthbar(healthbarTexture, bgSource, fgSource, 100);
+        _healthbarAnimated = new HealthbarAnimated(healthbarTexture, bgSource, fgSource, 100);
+
+        Texture2D ultimateTexture = Content.Load<Texture2D>("ultimate");
+        Rectangle bgSourceUltimate = new Rectangle(25, 0, 41, 44);
+        Rectangle fgSourceUltimate = new Rectangle(0, 12, 17, 19);
+
+        _ultimatebar = new Ultimatebar(ultimateTexture, bgSourceUltimate, fgSourceUltimate, 5);
+        _ultimatebarAnimated = new UltimatebarAnimated(ultimateTexture, bgSourceUltimate, fgSourceUltimate, 5);
+
+
+
         _map.LoadContent(Content);
         _cutscene.LoadContent(Content);
 
@@ -75,9 +109,13 @@ public class MainScene : Game
         switch (Singleton.Instance.CurrentGameState)
         {
             case Singleton.GameState.Start:
-                if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released)
+                if (IsButtonClicked(_menuPlay))
                 {
                     Singleton.Instance.CurrentGameState = Singleton.GameState.Cutscene;
+                }
+                else if (IsButtonClicked(_menuExit))
+                {
+                    Exit();
                 }
                 break;
             case Singleton.GameState.Cutscene:
@@ -140,6 +178,37 @@ public class MainScene : Game
                         }
                     }
                 }
+
+                foreach (var obj in _gameObjects)
+                {
+                    if (obj is Checkpoint checkpoint)
+                    {
+                        if (GameObject.CheckAABBCollision(Singleton.Instance.player.Rectangle, checkpoint.Rectangle))
+                        {
+                            if (!checkpoint.Activated)
+                            {
+                                checkpoint.Activate();
+                                // คุณอาจเพิ่มเสียงหรือเอฟเฟคที่นี่
+                            }
+                            // อัปเดต LastCheckpoint ของผู้เล่นให้เป็นตำแหน่งของ checkpoint นี้
+                            Singleton.Instance.player.LastCheckpoint = checkpoint.Position;
+                        }
+                    }
+                }
+
+                // ตรวจสอบการตกออกนอกแผนที่ (เช่น ตกลงไปมากกว่า Y = 50000)
+                if (Singleton.Instance.player.Position.X > 13000)
+                {
+                    // รีเซ็ตตำแหน่งผู้เล่นกลับไปที่ Checkpoint ล่าสุด
+                    Singleton.Instance.player.Position = Singleton.Instance.player.LastCheckpoint;
+                    Singleton.Instance.player.Velocity = Vector2.Zero;
+                }
+
+                _healthbar.Update(Singleton.Instance.player.Health);
+                _healthbarAnimated.Update(Singleton.Instance.player.Health, gameTime);
+
+                _ultimatebar.Update(Singleton.Instance.player.Ultimate);
+                // _ultimatebarAnimated.Update(Singleton.Instance.player.Ultimate, gameTime);
 
                 if (Singleton.Instance.player.Position.Y > 50000)
                 {
@@ -209,14 +278,16 @@ public class MainScene : Game
         // Layer 1: Background
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        _spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
+        // _spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.White);
 
         _spriteBatch.End();
 
-        // Layer 2: Button UI
+        // Layer 2: Icon and Button
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        // Code Button
+        _spriteBatch.Draw(_menuIcon, new Rectangle(394, 0, 492, 427), Color.White); // Icon
+        _spriteBatch.Draw(_menuButton, _menuPlay, new Rectangle(167, 1, 165, 98), Color.White); // Play
+        _spriteBatch.Draw(_menuButton, _menuExit, new Rectangle(0, 0, 165, 98), Color.White); // Exit
 
         _spriteBatch.End();
     }
@@ -249,6 +320,7 @@ public class MainScene : Game
         // Layer 2: Map & Camera
         _spriteBatch.Begin(transformMatrix: _camera.Transform, samplerState: SamplerState.PointClamp);
 
+
         _map.Draw(_spriteBatch);
 
         for (int i = 0; i < _numOjects; i++)
@@ -262,6 +334,12 @@ public class MainScene : Game
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         // Setting Menu Button 
+        // วาด HealthBar
+        _healthbar.Draw(_spriteBatch);
+        _healthbarAnimated.Draw(_spriteBatch);
+        _ultimatebar.Draw(_spriteBatch);
+
+        // _ultimatebarAnimated.Draw(_spriteBatch);
         // ResetUI();
 
         _spriteBatch.End();
@@ -287,7 +365,7 @@ public class MainScene : Game
     {
         Singleton.Instance.Score = 0;
         Singleton.Instance.Timer = 0;
-        Singleton.Instance.CurrentGameState = Singleton.GameState.Cutscene;
+        Singleton.Instance.CurrentGameState = Singleton.GameState.GamePlaying;
 
         _gameObjects.Clear();
 
@@ -300,50 +378,6 @@ public class MainScene : Game
             s.Reset();
         }
     }
-
-    // public void ResetUI() // Can into the player class
-    // {
-    //     var healthAnimations = AnimationHealth.LoadAnimations(Content.Load<Texture2D>("health_bar_red"));
-
-    //     // สมมุติว่า HP max คือ 100
-    //     int health = Singleton.Instance.player.Health;
-    //     Animation hpAnimation;
-
-    //     if (health == 4)
-    //         hpAnimation = healthAnimations["HP100"];
-    //     else if (health == 3)
-    //         hpAnimation = healthAnimations["HP75"];
-    //     else if (health == 2)
-    //         hpAnimation = healthAnimations["HP50"];
-    //     else if (health == 1)
-    //         hpAnimation = healthAnimations["HP25"];
-    //     else
-    //         hpAnimation = healthAnimations["HP0"];
-
-    //     AnimationManager hpAnimationManager = new AnimationManager(hpAnimation);
-    //     hpAnimationManager.Position = new Vector2(57, 41);
-    //     hpAnimationManager.Scale = 2f;
-    //     hpAnimationManager.Draw(_spriteBatch);
-
-    //     var ultAnimations = AnimationUltimateCharge.LoadAnimations(Content.Load<Texture2D>("ult_charge"));
-    //     Animation _ultAnimation;
-
-    //     int ult = Singleton.Instance.player.Ultimate;
-
-    //     if (ult >= 4)
-    //         _ultAnimation = ultAnimations["ULT1"];
-    //     else if (ult == 3)
-    //         _ultAnimation = ultAnimations["ULT2"];
-    //     else if (ult == 2)
-    //         _ultAnimation = ultAnimations["ULT3"];
-    //     else
-    //         _ultAnimation = ultAnimations["ULT4"];
-
-    //     AnimationManager ultAnimationManager = new AnimationManager(_ultAnimation);
-    //     ultAnimationManager.Position = new Vector2(287, 35);
-    //     ultAnimationManager.Scale = 1.5f;
-    //     ultAnimationManager.Draw(_spriteBatch);
-    // }
 
     public void ResetPlayer()
     {
@@ -437,8 +471,8 @@ public class MainScene : Game
         // _gameObjects.Add(monster);
         // _gameObjects.Add(monster1);
         // _gameObjects.Add(monster2);
-        _gameObjects.Add(monster3);
-        // _gameObjects.Add(boss);
+        // _gameObjects.Add(monster3);
+        _gameObjects.Add(boss);
     }
 
     public void ResetObject()
@@ -460,5 +494,10 @@ public class MainScene : Game
 
         // Add GameObjects
         _gameObjects.Add(chest);
+    }
+
+    private bool IsButtonClicked(Rectangle buttonRect)
+    {
+        return Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Released && buttonRect.Contains(Singleton.Instance.CurrentMouse.Position);
     }
 }

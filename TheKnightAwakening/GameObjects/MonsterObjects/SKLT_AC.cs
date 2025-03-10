@@ -59,21 +59,25 @@ namespace TheKnightAwakening
             // ส่วนการเคลื่อนที่และโจมตี
             if (gameTime.TotalGameTime.TotalSeconds > 1)
             {
-                attackTimer = 0f;
                 if (DistanceMoved <= 200)
                 {
-                    float attackAnimDuration = Animations["Attack"].FrameSpeed * Animations["Attack"].FrameCount;
-                    attackTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    if (attackTimer <= -0.4f) // adjust animation when collision for attack
+                    attackTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // ลด attackTimer ทุกเฟรม
+
+                    if (attackTimer <= -attackDelay) // ตรวจสอบว่าเวลาถึงการโจมตีหรือยัง
                     {
-                        Console.WriteLine("Attack");
-                        // เมื่อ delay หมดแล้ว ให้เล่นแอนิเมชัน Attack และโจมตี Player แล้วรีเซ็ต timer
-                        AnimationManager.Play(Animations["Attack"]);
-                        attackTimer = attackDelay;
+                        attackTimer = attackDelay; // รีเซ็ต attackTimer ด้วยค่า delay ใหม่
+                        // AnimationManager.Play(Animations["Attack"]);
+
+                        // เมื่อ delay หมดแล้ว ให้เล่นแอนิเมชัน Attack และโจมตี Player
                         var newBullet = Bullet.Clone() as Bullet;
-                        newBullet.Position = new Vector2(Rectangle.Width / 2 + Position.X - newBullet.Rectangle.Width / 2, Position.Y);
+                        newBullet.Position = new Vector2(Rectangle.X + (AnimationManager.FacingRight ? Rectangle.Width : -newBullet.Rectangle.Width), Position.Y + 15);
+                        newBullet.Velocity = new Vector2(AnimationManager.FacingRight ? 300 : -300, 0);
                         newBullet.Reset();
                         _gameObjects.Add(newBullet);
+                    }
+                    else
+                    {
+                        AnimationManager.Play(Animations["Attack"]);
                     }
                 }
                 else
@@ -111,11 +115,12 @@ namespace TheKnightAwakening
         public override void Reset()
         {
             Health = 5;
+            Damage = 20;
             walkSpeed = 1f;
             runSpeed = 2f;
             moveDirection = -1;
             attackTimer = 0f;
-            attackDelay = 3.0f;
+            attackDelay = Animations["Attack"].FrameSpeed * Animations["Attack"].FrameCount / 2;
             base.Reset();
         }
     }
